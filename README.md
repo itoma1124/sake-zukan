@@ -27,6 +27,6 @@
 ## 実装予定の機能
 
 ## データベース設計
-  ![image](sake-memo.png)
+  ![image](sake-zukan.png)
 
 ## ローカルでの動作方法
