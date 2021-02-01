@@ -1,24 +1,32 @@
-# README
+# 僕の私の酒図鑑
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## アプリケーション概要
+  このアプリでは、飲んだお酒の情報を登録することができます。また他の人の投稿を見て、次のお酒を見つける手助けをすることもできるでしょう。
 
-Things you may want to cover:
+## URL
 
-* Ruby version
+## テスト用アカウント
 
-* System dependencies
+## 利用方法
+  お酒を飲んだら、このアプリに登録しましょう。また、情報を追加し図鑑を完成させましょう。
+## 目指した課題解決
+  このアプリは、私や同じような人が日本酒の味を記憶していないという問題を解決するために開発されました。日本酒が好きで飲むのですが、飲んだという記憶はあれどどんな味だったか、何と合わせたら美味しかったか全くと言っていいほど覚えていません。酔った時の記憶とは当てにならないものです。そこで、味をメモする場所を提供しようとこのアプリを開発しました。
 
-* Configuration
+## 洗い出した用件
+  ユーザー  機能 | 登録/編集/削除
+  酒       機能 | 登録/編集/削除
+  メモ　　  機能 | 登録/削除
+  コメント  機能 | 登録/削除
+  お気に入り機能 | 登録/削除
+  ソート機能
+  メモ完成チェック
+  マイページ
 
-* Database creation
+## 実装した機能についてのGIFと説明
 
-* Database initialization
+## 実装予定の機能
 
-* How to run the test suite
+## データベース設計
+  ![image](sake-memo.png)
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## ローカルでの動作方法
