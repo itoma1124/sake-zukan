@@ -1,0 +1,16 @@
+<div class="container mb-3">
+      <label class="form-colum w-25">蔵元名</label>
+      <%= f.text_field :maker ,class:"form-control w-50",rows:"1" ,placeholder:"〇〇酒蔵",maxlength:"40"%>
+    </div>
+    <div class="container mb-3">
+      <label class="form-colum w-100">地域</label>
+      <%= f.collection_select(:area_id, Area.all, :id, :name, {}, {class:"form-control w-25", id:"sake-prefecture"}) %>
+    </div>
+    <div class="container mb-3">
+      <label class="form-colum w-100">都道府県</label>
+      <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {}, {class:"form-control w-25", id:"sake-prefecture"}) %>
+    </div>
+    <div class="container mb-3">
+      <label class="form-colum w-100">地域</label>
+      <%= f.text_field :city ,class:"form-control w-25",rows:"1" ,placeholder:"〇〇市",maxlength:"40"%>
+    </div>
