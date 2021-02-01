@@ -13,7 +13,6 @@ class SakesController < ApplicationController
 
   def create
     @sake = Sake.new(sake_params)
-    binding.pry
     if @sake.save
       redirect_to root_path
     else
@@ -36,6 +35,9 @@ class SakesController < ApplicationController
   end
 
   def destroy
+    if @sake.destroy
+      redirect_to root_path
+    end
   end
 
   private
