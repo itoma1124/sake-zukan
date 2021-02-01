@@ -13,6 +13,7 @@ class SakesController < ApplicationController
 
   def create
     @sake = Sake.new(sake_params)
+    binding.pry
     if @sake.save
       redirect_to root_path
     else
@@ -34,7 +35,7 @@ class SakesController < ApplicationController
 
   private
   def sake_params
-    params.require(:sake).permit(:name, :category, :total_id, :taste_id, :sourness_id, :easy_id, :place, :impression, :maker, :area_id, :text).merge(user_id:current_user.id)
+    params.require(:sake).permit(:name, :category, :total_id, :taste_id, :sourness_id, :easy_id, :place, :impression, :maker, :area_id, :text, :image).merge(user_id:current_user.id)
   end
 
   def sake_set

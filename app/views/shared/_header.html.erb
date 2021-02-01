@@ -9,9 +9,10 @@
   </p>
   <div class="d-flex justify-content-end border-bottom"> <%#下段ボタン群%>
     <% if user_signed_in?%>
+      <p>こんにちは<%=current_user.nickname%>さん</p>
       <%= link_to "新しい酒を見つけた！",new_sake_path,class:"btn btn-success my-2 mx-3"%>
       <%= link_to "マイページ", edit_user_registration_path(current_user.id), class: "btn btn-primary my-2 mx-3",id: "user-nickname" %>
-      <%= button_to 'ログアウト', destroy_user_session_path, method: :delete, class: "btn btn-secondary my-2 mx-3" %>
+      <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "btn btn-secondary my-2 mx-3" %>
     <% else %>
       <%= link_to 'ログイン', new_user_session_path, class: "btn btn-primary my-2 mx-3" %>
       <%= link_to '新規登録', new_user_registration_path, class: "btn btn-success my-2 mx-3" %>

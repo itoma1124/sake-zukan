@@ -6,7 +6,7 @@ class Area < ActiveHash::Base
     { id: 7, name: '近畿' }, { id: 8, name: '中国' }, { id: 9, name: '四国' },
     { id: 10, name: '九州' }, { id: 11, name: 'その他' }
   ]
-
+  
   include ActiveHash::Associations
   has_many :sakes
 end
