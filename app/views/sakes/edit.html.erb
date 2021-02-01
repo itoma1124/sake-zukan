@@ -1,16 +1,78 @@
-<div class="container mb-3">
+<%= render "shared/header"%>
+
+
+<div class="container">
+  <h1 class="my-4">酒メモを更新！</h1>
+  <%# エラーメッセージの表示 %>
+  <% if @sake.errors.any? %>
+    <div class="error-alert">
+      <ul>
+        <% @sake.errors.full_messages.each do |message| %>
+        <li class='error-message'><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <%# /エラーメッセージの表示 %>
+  <div class="container">
+    <%= form_with model: @sake do |f| %>
+
+    <div class="container mb-3">
+      <label class="form-colum w-25">
+        お酒の名前
+        <%if @sake.name=""%>
+          <span>*</span>
+        <%end%>
+      </label>
+      <%= f.text_field :name ,value:@sake.name,class:"form-control w-50", rows:"1" ,maxlength:"40"%>
+    </div>
+    <div class="container mb-3">
+      <label class="form-colum w-100">お酒の画像</label>
+      <%= f.file_field :image, id:"sake-image", class:"btn-light", value:@sake.image %>
+    </div>
+    <div class="container mb-3">
+      <label class="form-colum w-25">飲んだ感想</label>
+      <%= f.text_area :impression, class:"form-control" , id:"sake-info" , placeholder:"飲んだ印象やこの酒に合う食事など、飲んだ感想を忘れないうちにメモしましょう",rows:"7" ,maxlength:"1000",value:@sake.impression%>
+    </div>
+    <div class="container mb-3">
+      <label class="form-colum w-25">カテゴリー</label>
+      <%= f.text_field :category ,class:"form-control w-25",rows:"1" ,placeholder:"純米吟醸酒",maxlength:"40",value:@sake.category%>
+    </div>
+    <div class="container mb-3">
+      <label class="form-colum w-25">飲んだ/購入した場所</label>
+      <%= f.text_field :place ,class:"form-control w-50",rows:"1",value:@sake.place%>
+    </div>
+    <div class="container mb-3">
+      <label class="form-colum w-100">テイスト</label>
+      <%= f.collection_select(:taste_id, Taste.all, :id, :name, {selected: @sake.taste_id}, {class:"form-control w-25", id:"sake-taste"}) %>
+    </div>
+    <div class="container mb-3">
+      <label class="form-colum w-100">酸味</label>
+      <%= f.collection_select(:sourness_id, Sourness.all, :id, :name, {selected: @sake.sourness_id}, {class:"form-control w-25", id:"sake-sourness"}) %>
+    </div>
+    <div class="container mb-3">
+      <label class="form-colum w-100">飲みやすさ</label>
+      <%= f.collection_select(:easy_id, Easy.all, :id, :name, {selected: @sake.easy_id}, {class:"form-control w-25", id:"sake-easy"}) %>
+    </div>
+    <div class="container mb-3">
+      <label class="form-colum w-100">総合評価</label>
+      <%= f.collection_select(:total_id, Total.all, :id, :name, {selected: @sake.total_id}, {class:"form-control w-25", id:"sake-total"}) %>
+    </div>
+    <div class="container mb-3">
       <label class="form-colum w-25">蔵元名</label>
-      <%= f.text_field :maker ,class:"form-control w-50",rows:"1" ,placeholder:"〇〇酒蔵",maxlength:"40"%>
+      <%= f.text_field :maker ,class:"form-control w-50",rows:"1" ,placeholder:"〇〇酒蔵",maxlength:"40", value:@sake.maker%>
     </div>
     <div class="container mb-3">
       <label class="form-colum w-100">地域</label>
-      <%= f.collection_select(:area_id, Area.all, :id, :name, {}, {class:"form-control w-25", id:"sake-prefecture"}) %>
+      <%= f.collection_select(:area_id, Area.all, :id, :name, {selected: @sake.area_id}, {class:"form-control w-25", id:"sake-prefecture"}) %>
     </div>
     <div class="container mb-3">
-      <label class="form-colum w-100">都道府県</label>
-      <%= f.collection_select(:prefecture_id, Prefecture.all, :id, :name, {}, {class:"form-control w-25", id:"sake-prefecture"}) %>
+      <label class="form-colum w-25">テキスト</label>
+      <%= f.text_area :text, class:"form-control" , id:"sake-info" , placeholder:"公式テキストや他の人の感想",rows:"7" ,maxlength:"1000", value: @sake.text%>
     </div>
-    <div class="container mb-3">
-      <label class="form-colum w-100">地域</label>
-      <%= f.text_field :city ,class:"form-control w-25",rows:"1" ,placeholder:"〇〇市",maxlength:"40"%>
+    <div class="container w-100 d-flex justify-content-center"> 
+      <%= f.submit '更新' ,class:"width-100 btn btn-light "%>
     </div>
+    <% end %>
+  </div>
+</div>

@@ -27,14 +27,22 @@ class SakesController < ApplicationController
   end
 
   def update
+    if @sake.update(sake_params)
+      redirect_to sake_path(params[:id])
+    else
+      render :index
+    end
   end
 
   def destroy
+    if @sake.destroy
+      redirect_to root_path
+    end
   end
 
   private
   def sake_params
-    params.require(:sake).permit(:name, :category, :total_id, :taste_id, :sourness_id, :easy_id, :place, :impression, :maker, :area_id, :text).merge(user_id:current_user.id)
+    params.require(:sake).permit(:name, :category, :total_id, :taste_id, :sourness_id, :easy_id, :place, :impression, :maker, :area_id, :text, :image).merge(user_id:current_user.id)
   end
 
   def sake_set

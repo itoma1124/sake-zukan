@@ -7,8 +7,8 @@
       <div class="row">
         <ul class="horizontal-list">
           <% @sakes.last(10).reverse_each do |sake| %>
-          <li class="col-md-3 item">
-            <div class="card shadow-sm ">
+          <li class="col-md-4 item">
+            <div class="card shadow-sm">
               <%if sake.image.attached?%>
                 <%= image_tag sake.image, class: 'card-img-top image mt-4'%>
               <%else%>
@@ -19,19 +19,23 @@
                   <h3><%= sake.name %></h3>
                 </p>
                 <p>
-                    種類:<%= sake.category.name %><br>
+                    種類:<%= sake.category %><br>
                     総合評価:<%= sake.total.name %>
                     <div class="text-right"><%= sake.user.nickname %></div>
                 </p>
                 <div class="d-flex justify-content-between align-items-center">
                   <div class="btn-group d-flex justify-content-between">
                     <%= link_to '詳細', sake_path(sake.id), class: "btn btn-sm btn-outline-secondary" %>
-                    <%if Favorite.exists?(user_id: current_user.id, sake_id: sake.id) %>
-                      <%= link_to "#", method: :post, remote: true, class: "favorite-btn favorite-post"%>
-                    <%else%>
-                      <%=link_to "#", method: :delete, remote: true, class: "favorite-btn favorite-delete" %>
-                    <%end%>
-                    <%=sake.favorites.length%>
+                    <% if sake.user_id == current_user.id %>
+                      <%= link_to '編集', edit_sake_path(sake.id), class: "btn btn-sm btn-outline-secondary" %>
+                      <%= link_to '削除', sake_path(sake.id),method: :delete, class: "btn btn-sm btn-outline-secondary"%>
+                    <% end %>
+                    <%# <%if Favorite.exists?(user_id: current_user.id, sake_id: sake.id) %> %>
+                      <%# <%= link_to "#", method: :post, remote: true, class: "favorite-btn favorite-post"%> %>
+                    <%# <%else%> %>
+                      <%# <%=link_to "#", method: :delete, remote: true, class: "favorite-btn favorite-delete" %> %>
+                    <%# <%end%> %>
+                    <%# <%=sake.favorites.length%> %>
                   </div>
                 </div>
               </div>

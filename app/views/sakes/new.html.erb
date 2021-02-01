@@ -2,7 +2,7 @@
 
 
 <div class="container">
-<h1 class="my-4">新規登録</h1>
+  <h1 class="my-4">新しい酒を見つけた！</h1>
   <%# エラーメッセージの表示 %>
   <% if @sake.errors.any? %>
     <div class="error-alert">
@@ -15,10 +15,15 @@
   <% end %>
   <%# /エラーメッセージの表示 %>
   <div class="container">
-    <%= form_with model: @sake,class:"sake-forms" do |f| %>
+    <%= form_with model: @sake do |f| %>
+
     <div class="container mb-3">
       <label class="form-colum w-25">お酒の名前</label>
       <%= f.text_field :name ,class:"form-control w-50",rows:"1" ,maxlength:"40"%>
+    </div>
+    <div class="container mb-3">
+      <label class="form-colum w-100">お酒の画像</label>
+      <%= f.file_field :image, id:"sake-image", class:"btn-light" %>
     </div>
     <div class="container mb-3">
       <label class="form-colum w-25">感想</label>
@@ -48,7 +53,7 @@
       <label class="form-colum w-100">総合評価</label>
       <%= f.collection_select(:total_id, Total.all, :id, :name, {}, {class:"form-control w-25", id:"sake-total"}) %>
     </div>
-    <div class="container w-25"> 
+    <div class="container w-100 d-flex justify-content-center"> 
       <%= f.submit '登録' ,class:"width-100 btn btn-light"%>
     </div>
     <% end %>
