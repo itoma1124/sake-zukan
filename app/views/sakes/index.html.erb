@@ -27,6 +27,7 @@
                   <div class="btn-group d-flex justify-content-between">
                     <%= link_to '詳細', sake_path(sake.id), class: "btn btn-sm btn-outline-secondary" %>
                     <% if sake.user_id == current_user.id %>
+                      <%= link_to '編集', edit_sake_path(sake.id), class: "btn btn-sm btn-outline-secondary" %>
                       <%= link_to '削除', sake_path(sake.id),method: :delete, class: "btn btn-sm btn-outline-secondary"%>
                     <% end %>
                     <%# <%if Favorite.exists?(user_id: current_user.id, sake_id: sake.id) %> %>

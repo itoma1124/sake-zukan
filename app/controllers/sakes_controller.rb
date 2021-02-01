@@ -28,6 +28,11 @@ class SakesController < ApplicationController
   end
 
   def update
+    if @sake.update(sake_params)
+      redirect_to sake_path(params[:id])
+    else
+      render :index
+    end
   end
 
   def destroy
