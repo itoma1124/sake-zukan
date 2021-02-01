@@ -1,0 +1,30 @@
+<%= link_to(root_path, class: 'd-flex justify-content-center align-items-center') do %> <%#上段ロゴ＆タイトル%>
+  <%= image_tag 'title-logo.png' , size: '185x50' , class:"img-fluid"%>
+  <h1 class="text-body">僕の私の酒図鑑</h1>
+<% end %>
+<div class="container my-2">
+<h2>ログイン</h2>
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  <div class="container my-2">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email" ,class:"form-control w-75" %>
+  </div>
+
+  <div class="container my-2">
+    <%= f.label :password %><br />
+    <%= f.password_field :password, autocomplete: "current-password", class:"form-control w-75" %>
+  </div>
+
+  <% if devise_mapping.rememberable? %>
+    <div class="container my-2">
+      <%= f.check_box :remember_me %>
+      <%= f.label :remember_me %>
+    </div>
+  <% end %>
+
+  <div class="container my-2">
+    <%= f.submit "ログイン", class:"btn-light" %>
+    <%= link_to '新規登録へ', new_user_registration_path, class: "my-2 col" %>
+  </div>
+<% end %>
+</div>
