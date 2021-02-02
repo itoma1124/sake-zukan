@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  get 'favorites/create'
+  get 'favorites/destroy'
   get 'comments/create'
   get 'comments/destroy'
   get 'users/show'
