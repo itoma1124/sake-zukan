@@ -11,6 +11,7 @@ class CommentsController < ApplicationController
     if @comment.destroy
       redirect_to root_path
     end
+  end
 
   private
     def comment_params

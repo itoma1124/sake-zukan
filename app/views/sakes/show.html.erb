@@ -1,7 +1,7 @@
 <%= render "shared/header"%>
 
 <div class="container mt-5 d-flex"><!--上部-->
-  <div class="col-5 mt-1"><!--上部左-->
+  <div class="col-5"><!--上部左-->
     <h2 class="pt-3 text-center ml-3 border-bottom"> <%=@sake.name%> </h2>
   <div class="container my-4 ">
     <p class="col">　　　種類 :<%=@sake.category%></p>
@@ -12,6 +12,8 @@
     <p class="col">　　　酸味 : <%=@sake.sourness.name%></p>
     <p class="col">飲みやすさ : <%=@sake.easy.name%></p>
     <p class="col">飲んだ場所 : <%=@sake.place%></p>
+    <h4 class="my-3 border-top pt-2"><%=@sake.user.nickname%>の感想</h4>
+    <p class="card w-100 font-xs　text-body　border rounded h-min-5"><%=@sake.impression%><p>
   </div>
   </div>
   <div class="col"><!--上部右-->
@@ -27,15 +29,39 @@
     </div>
   </div>
 </div>
-
-
-<div class="container d-flex"><!--下部-->
-  <div class=" col-5">
-    <h4 class="container"><%=@sake.user.nickname%>の感想</h4>
-    <p class="card w-100 font-xs　text-body　border rounded h-min-9"><%=@sake.impression%><p>
-  </div>
+<%# コメント機能 %>
+<div class="container">
   <div class="col">
-    コメント
+    <h2>コメント</h2>
+    <%# コメント投稿機能 %>
+    <div class="container mb-2">
+      <% if user_signed_in?%> 
+        <%= form_with model: [@sake,@comment], local: true, class:"d-flex" do |f| %>
+          <%= f.text_area :text,class:"form-control text-body w-75", placeholder:"相手のことを考え丁寧なコメントを心がけましょう。不快な言葉遣いなどは利用制限や退会処分となることがあります。",row:2%>
+          <%= f.submit "コメントする", class:"mt-2 btn btn-primary m-auto" %>
+        <% end %>
+      <% else %>
+        <strong><p>※※※ コメントの投稿には新規登録/ログインが必要です ※※※</p></strong>
+      <% end %>
+    </div>
+    <%# /コメント投稿機能 %>
+    <%# コメント一覧表示 %>
+    <div class="col">
+      <h4 class = "">＜コメント一覧＞</h4>
+      <div class="container">
+         <% @comments.reverse_each do |comment| %>
+            <li class="container d-flex border rounded">
+              <p class="my-auto"><%= comment.user.nickname %>:</p>
+              <p class="col my-auto"><%= comment.text %></p>
+              <p class="text-black-50 my-auto font-xs text-right"><%= comment.created_at%></p>
+              <% if comment.user_id == current_user.id %>
+              <%= link_to '削除', sake_comment_path(comment.id),method: :delete, class: "btn btn-sm btn-outline-secondary my-2"%>
+              <% end %>
+            </li>
+        <% end %>
+      </div>
+    </div>
+    <%# /コメント一覧表示 %>
   </div>
 </div>
-
+<%# /コメント %>
