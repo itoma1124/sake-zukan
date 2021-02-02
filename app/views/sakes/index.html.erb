@@ -2,48 +2,47 @@
 
 <main>
   <div class="album py-5 bg-light">
-    <div class="container",id="new-contents">
-      <h2>〜みんなの酒ログ〜</h2><p>最近飲まれた酒</p>
-      <div class="row">
-        <ul class="horizontal-list">
-          <% @sakes.last(10).reverse_each do |sake| %>
-          <li class="col-md-4 item">
-            <div class="card shadow-sm">
+    <div class="container",id="title">
+      <h2>〜みんなの酒メモ〜</h2>
+    </div><%# /id:title %>
+    <div class="container",id="lists">
+      <ul class="list-group">
+        <% @sakes.reverse_each do |sake| %>
+          <li class="col-md-4 list-group-item">
+            <!--card内枠-->
+            <div class="card shadow-sm py-3"> 
+              <!--card上部-->
               <%if sake.image.attached?%>
-                <%= image_tag sake.image, class: 'card-img-top image mt-4'%>
+                <%= image_tag sake.image, class: 'card-img-top image'%>
               <%else%>
-                <%= image_tag 'no-image.png', class: 'card-img-top image mt-4'%> 
+                <%= image_tag 'no-image.png', class: 'card-img-top image'%> 
               <%end%>
-              <div class="card-body">
+              <!--/card上部-->
+              <!--card下部-->
+              <div class="container">
                 <p class="card-text">
                   <h3><%= sake.name %></h3>
                 </p>
-                <p>
-                    種類:<%= sake.category %><br>
+                <p class="font-s">
+                    　　種類:<%= sake.category %><br>
                     総合評価:<%= sake.total.name %>
-                    <div class="text-right"><%= sake.user.nickname %></div>
+                    <div class="text-right"><%=link_to sake.user.nickname,users_show_path(sake.user_id),class:"text-body"%></div>
                 </p>
-                <div class="d-flex justify-content-between align-items-center">
-                  <div class="btn-group d-flex justify-content-between">
-                    <%= link_to '詳細', sake_path(sake.id), class: "btn btn-sm btn-outline-secondary" %>
-                    <% if sake.user_id == current_user.id %>
-                      <%= link_to '編集', edit_sake_path(sake.id), class: "btn btn-sm btn-outline-secondary" %>
-                      <%= link_to '削除', sake_path(sake.id),method: :delete, class: "btn btn-sm btn-outline-secondary"%>
-                    <% end %>
-                    <%# <%if Favorite.exists?(user_id: current_user.id, sake_id: sake.id) %> %>
-                      <%# <%= link_to "#", method: :post, remote: true, class: "favorite-btn favorite-post"%> %>
-                    <%# <%else%> %>
-                      <%# <%=link_to "#", method: :delete, remote: true, class: "favorite-btn favorite-delete" %> %>
-                    <%# <%end%> %>
-                    <%# <%=sake.favorites.length%> %>
-                  </div>
+
+                <div class="btn-group d-flex justify-content-between">
+                  <%= link_to '詳細', sake_path(sake.id), class: "btn btn-sm btn-outline-secondary" %>
+                  <% if sake.user_id == current_user.id %>
+                    <%= link_to '編集', edit_sake_path(sake.id), class: "btn btn-sm btn-outline-secondary" %>
+                    <%= link_to '削除', sake_path(sake.id),method: :delete, class: "btn btn-sm btn-outline-secondary"%>
+                  <% end %>
                 </div>
               </div>
+              <!--/card下部-->
             </div>
+            <!--/card内枠-->
           </li>
-          <%end%>
-        </ul>
-      </div>
-    </div>
-  </div>
+        <%end%>
+      </ul>
+    </div><!--id:lists-->
+  </div>　<!-- /album py-5 bg-light -->
 </main>

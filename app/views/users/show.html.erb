@@ -1,2 +1,56 @@
-<h1>Users#show</h1>
-<p>Find me in app/views/users/show.html.erb</p>
+<%= render "shared/header"%>
+
+<main>
+  <div class="album py-5 bg-light">
+    <div class="container",id="title">
+      <h2>〜<%= current_user.nickname %>の酒図鑑〜</h2>
+      <p class="text-bottom">
+        見つけた数:<%=@sakes.length%>　調べた数:<%=@complete.length%>
+        <%unless @sakes.length == @complete.length%>
+        <span class="mx-2 text-danger font-xs ">未完成のメモがあるようです。調べて完成させましょう。</span>
+        <%else%>
+        <span class="mx-2 text-body font-xs ">新しい酒を探しましょう！</span>
+        <%end%>
+      </p>
+    </div><%# /id:title %>
+    <div class="container",id="lists">
+      <ul class="list-group">
+        <% @sakes.reverse_each do |sake| %>
+          <%if @complete.include?(sake)%>
+          <li class="col-md-4 list-group-item">
+          <%else%>
+          <li class="col-md-4 list-group-item border-danger bg-danger">
+          <%end%>
+            <div class="card shadow-sm py-3"> <!--card内枠-->
+              <%if sake.image.attached?%>
+                <%= image_tag sake.image, class: 'card-img-top image'%>
+              <%else%>
+                <%= image_tag 'no-image.png', class: 'card-img-top image'%> 
+              <%end%>
+              <div class="container">
+                <p class="card-text">
+                  <h3><%= sake.name %></h3>
+                </p>
+                <p class="font-s">
+                    　　種類:<%= sake.category %><br>
+                    総合評価:<%= sake.total.name %>
+                    <p class="border font-xs rounded h-3"> <%= sake.impression%></p>
+                </p>
+                <div class="btn-group d-flex justify-content-between">
+                  <%= link_to '詳細', sake_path(sake.id), class: "btn btn-sm btn-outline-secondary" %>
+                  <% if sake.user_id == current_user.id %>
+                    <%= link_to '編集', edit_sake_path(sake.id), class: "btn btn-sm btn-outline-secondary" %>
+                    <%= link_to '削除', sake_path(sake.id),method: :delete, class: "btn btn-sm btn-outline-secondary"%>
+                  <% end %>
+                </div>
+                <% unless @complete.include?(sake) %>
+                <p class="mt-2 text-center text-danger font-xxs ">未登録の項目があります</p>
+                <% end %>
+              </div><!--card-body-->
+            </div><!--card内枠-->
+          </li>
+        <%end%>
+      </ul>
+    </div><!--id:lists-->
+  </div>　<!-- /album py-5 bg-light -->
+</main>

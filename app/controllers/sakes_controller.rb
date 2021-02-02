@@ -1,7 +1,7 @@
 class SakesController < ApplicationController 
-  # before_action :authenticate_user!, except:[:index,:show]
+  before_action :authenticate_user!, except:[:index,:show]
   before_action :sake_set, only: [:edit, :show, :update, :destroy]
-  # before_action :unmach_user, only: [:edit,:update,:destroy]
+  before_action :unmach_user, only: [:edit,:update,:destroy]
 
   def index
     @sakes = Sake.all
@@ -49,10 +49,10 @@ class SakesController < ApplicationController
     @sake = Sake.find(params[:id])
   end
 
-  # def unmach_user
-  #   unless current_user.id == @sake.user_id
-  #     redirect_to root_path
-  #   end
-  # end
+  def unmach_user
+    unless current_user.id == @sake.user_id
+      redirect_to root_path
+    end
+  end
 
 end
