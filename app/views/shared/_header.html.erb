@@ -1,6 +1,6 @@
 <header>
   <%= link_to image_tag("header.png", class:"w-100"), root_path %>　<%#最上段画像%>
-  <%= link_to(root_path, class: 'd-flex justify-content-center align-items-center') do %> <%#上段ロゴ＆タイトル%>
+  <%= link_to(root_path, class: 'd-flex justify-content-center align-items-center text-body') do %> <%#上段ロゴ＆タイトル%>
     <%= image_tag 'title-logo.png' , size: '185x50' , class:"img-fluid"%>
     <h1 class="text-body">僕の私の酒図鑑</h1>
   <% end %>
@@ -11,7 +11,7 @@
     <% if user_signed_in?%>
       <p>こんにちは<%=current_user.nickname%>さん</p>
       <%= link_to "新しい酒を見つけた！",new_sake_path,class:"btn btn-success my-2 mx-3"%>
-      <%= link_to "マイページ", edit_user_registration_path(current_user.id), class: "btn btn-primary my-2 mx-3",id: "user-nickname" %>
+      <%= link_to "マイページ", users_show_path(current_user.id), class: "btn btn-primary my-2 mx-3",id: "user-nickname" %>
       <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "btn btn-secondary my-2 mx-3" %>
     <% else %>
       <%= link_to 'ログイン', new_user_session_path, class: "btn btn-primary my-2 mx-3" %>

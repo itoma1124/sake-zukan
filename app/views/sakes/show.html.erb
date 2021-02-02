@@ -1,27 +1,27 @@
 <%= render "shared/header"%>
 
-<div class="container mt-5 d-flex">
-  <div class="col-5 mt-4">
-    <h2 class="pt-3 ml-3 text-center"> <%=@sake.name%></h2><br>
-  <div class="container">
+<div class="container mt-5 d-flex"><!--上部-->
+  <div class="col-5 mt-1"><!--上部左-->
+    <h2 class="pt-3 text-center ml-3 border-bottom"> <%=@sake.name%> </h2>
+  <div class="container my-4 ">
     <p class="col">　　　種類 :<%=@sake.category%></p>
     <p class="col">　　酒蔵名 :<%=@sake.maker%></p>
     <p class="col">　　製造地 :<%=@sake.area.name%></p>
-    <h4 class="my-3"><%=@sake.user.nickname%>の評価:<%=@sake.total.name%></h4>
+    <h4 class="my-3 border-top pt-2"><%=@sake.user.nickname%>の評価:<%=@sake.total.name%></h4>
     <p class="col">　のみくち : <%=@sake.taste.name%></p>
     <p class="col">　　　酸味 : <%=@sake.sourness.name%></p>
     <p class="col">飲みやすさ : <%=@sake.easy.name%></p>
     <p class="col">飲んだ場所 : <%=@sake.place%></p>
   </div>
   </div>
-  <div class="col">
+  <div class="col"><!--上部右-->
     <%= image_tag @sake.image, class: 'card-img-top'%>
     <div class="d-flex">
-      <p class="container my-2"><%=@sake.text %><p>
+      <p class="container my-2 mr-2 border rounded h-min-9"><%=@sake.text %><p>
       <%if current_user.id == @sake.user.id%>
-        <div class="d-flex">
-        <%= link_to '編集', edit_sake_path(@sake.id), class: "btn btn-sm btn-outline-secondary" %>
-        <%= link_to '削除', sake_path(@sake.id),method: :delete, class: "btn btn-sm btn-outline-secondary"%>
+        <div class="my-2">
+        <%= link_to '編集', edit_sake_path(@sake.id), class: "btn btn-sm btn-outline-secondary w-100 my-2"%>
+        <%= link_to '削除', sake_path(@sake.id),method: :delete, class: "btn btn-sm btn-outline-secondary w-100 my-2"%>
         </div>
       <%end%>
     </div>
@@ -29,10 +29,10 @@
 </div>
 
 
-<div class="container d-flex">
-  <div class="col-5">
-    <h4><%=@sake.user.nickname%>の感想</h4>
-    <p class="card w-100 text-body"><%=@sake.impression%><p>
+<div class="container d-flex"><!--下部-->
+  <div class=" col-5">
+    <h4 class="container"><%=@sake.user.nickname%>の感想</h4>
+    <p class="card w-100 font-xs　text-body　border rounded h-min-9"><%=@sake.impression%><p>
   </div>
   <div class="col">
     コメント

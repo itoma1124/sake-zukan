@@ -1,15 +1,38 @@
-/*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, or any plugin's
- * vendor/assets/stylesheets directory can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the bottom of the
- * compiled file so the styles you add here take precedence over styles defined in any other CSS/SCSS
- * files in this directory. Styles in this file should be added after the last require_* statement.
- * It is generally better to create a new file per style scope.
- *
- *= require_tree .
- *= require_self
- */
+/* 文字さいず */
+.font-xxs{font-size: xx-small;}
+.font-xs{font-size: x-small;}
+.font-s{font-size: small;}
+.font-m{font-size: medium;}
+.font-l{font-size: large;}
+.font-xl{font-size: x-large;}
+.font-xxl{font-size: xx-large;}
+
+/* height */
+.h-1{height: 1rem;}
+.h-2{height: 2rem;}
+.h-3{height: 3rem;}
+.h-4{height: 4rem;}
+.h-5{height: 5rem;}
+.h-6{height: 6rem;}
+.h-7{height: 7rem;}
+.h-8{height: 8rem;}
+.h-9{height: 9rem;}
+.h-10{height: 10rem;}
+
+/* max-height */
+.h-max-1{max-height: 1rem;}
+.h-max-2{max-height: 2rem;}
+.h-max-3{max-height: 3rem;}
+.h-max-4{max-height: 4rem;}
+
+/* min-height */
+.h-min-1{min-height: 1rem;}
+.h-min-2{min-height: 2rem;}
+.h-min-3{min-height: 3rem;}
+.h-min-4{min-height: 4rem;}
+.h-min-5{min-height: 5rem;}
+.h-min-6{min-height: 6rem;}
+.h-min-7{min-height: 7rem;}
+.h-min-8{min-height: 8rem;}
+.h-min-9{min-height: 9rem;}
+.h-min-10{min-height: 10rem;}
