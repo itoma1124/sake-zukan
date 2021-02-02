@@ -17,12 +17,7 @@
   </div>
   </div>
   <div class="col"><!--上部右-->
-                  <%unless Favorite.exists?(user_id:current_user.id,sake_id:@sake.id) %>
-                    <%= link_to '追加',sake_favorites_path(@sake),method: :post, class: "btn" %>
-                  <%else%>
-                    <%= link_to '削除', sake_favorites_path(@sake),method: :delete, class: "btn"%>
-                  <% end %>
-    <%= image_tag @sake.image, class: 'card-img-top'%>
+    <%= image_tag @sake.image, class: 'object-fit-contain w-100 h-26'%>
     <div class="d-flex">
       <p class="container my-2 mr-2 border rounded h-min-9"><%=@sake.text %><p>
       <%if current_user.id == @sake.user.id%>

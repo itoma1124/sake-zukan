@@ -23,6 +23,10 @@
 .h-8{height: 8rem;}
 .h-9{height: 9rem;}
 .h-10{height: 10rem;}
+.h-14{height: 14rem;}
+.h-15{height: 15rem;}
+.h-16{height: 16rem;}
+.h-26{height: 26rem;}
 
 /* max-height */
 .h-max-1{max-height: 1rem;}
@@ -41,3 +45,7 @@
 .h-min-8{min-height: 8rem;}
 .h-min-9{min-height: 9rem;}
 .h-min-10{min-height: 10rem;}
+
+/* object-fit */
+.object-fit-cover{object-fit: cover;}
+.object-fit-contain{object-fit: contain;}

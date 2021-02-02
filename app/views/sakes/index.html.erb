@@ -12,9 +12,9 @@
             <li class="card shadow-sm py-3  m-2 list-group-item " style="width: 18rem;"> 
               <!--card上部-->
               <%if sake.image.attached?%>
-                <%= image_tag sake.image, class:'card-img-top'%>
+                <%= image_tag sake.image, class:'card-img-top h-15 object-fit-cover'%>
               <%else%>
-                <%= image_tag 'no-image.png', class: 'card-img-top image-1'%> 
+                <%= image_tag 'no-image.png', class: 'card-img-top h-15 object-fit-cover'%> 
               <%end%>
               <!--/card上部-->
               <!--card下部-->
