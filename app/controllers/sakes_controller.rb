@@ -21,6 +21,8 @@ class SakesController < ApplicationController
   end
 
   def show
+    @comment = Comment.new
+    @comments = @sake.comments.includes(:user)
   end
 
   def edit

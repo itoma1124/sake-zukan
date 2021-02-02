@@ -1,3 +1,8 @@
+*{
+  font-family: "Tsukushi A Round Gothic","筑紫A丸ゴシック";
+  border: solid 1px pink;
+}
+
 /* 文字さいず */
 .font-xxs{font-size: xx-small;}
 .font-xs{font-size: x-small;}

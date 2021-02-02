@@ -2,7 +2,7 @@ class Sake < ApplicationRecord
   # -Association-
   belongs_to :user
   has_one_attached :image
-  # has_many :memos,     dependent: :destroy
+  has_many :comments,     dependent: :destroy
   # has_many :favorites, dependent: :destroy
   
   extend ActiveHash::Associations::ActiveRecordExtensions
