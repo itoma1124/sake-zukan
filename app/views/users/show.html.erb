@@ -1,7 +1,7 @@
 <%= render "shared/header"%>
-
 <main>
   <div class="album py-5 bg-light">
+
     <div class="container",id="title">
       <h2>〜<%= current_user.nickname %>の酒図鑑〜</h2>
       <p class="text-bottom">
@@ -13,19 +13,24 @@
         <%end%>
       </p>
     </div><%# /id:title %>
-    <div class="container",id="lists">
-      <ul class="list-group">
+
+    <div class="container",id="lists"><!--自分の投稿一覧-->
+      <div class="d-flex flex-wrap">
         <% @sakes.reverse_each do |sake| %>
           <%if @complete.include?(sake)%>
-          <li class="col-md-4 list-group-item">
-          <%else%>
-          <li class="col-md-4 list-group-item border-danger bg-danger">
+            <li class="col-4 shadow-sm py-3 my-1 list-group-item border-light"> 
+          <%else%>  
+            <li class="col-4 shadow-sm py-3 my-1 list-group-item border-light bg-danger" style="width: 18rem;"> 
           <%end%>
             <div class="card shadow-sm py-3"> <!--card内枠-->
               <%if sake.image.attached?%>
-                <%= image_tag sake.image, class: 'card-img-top image'%>
+                <%=link_to(sake_path(sake.id))do%>
+                  <%= image_tag sake.image, class:'card-img-top h-15 object-fit-cover'%>
+                <%end%>
               <%else%>
-                <%= image_tag 'no-image.png', class: 'card-img-top image'%> 
+                <%=link_to(sake_path(sake.id))do%>
+                  <%= image_tag 'no-image.png', class: 'card-img-top h-15 object-fit-cover'%> 
+                <%end%> 
               <%end%>
               <div class="container">
                 <p class="card-text">
@@ -37,7 +42,6 @@
                     <p class="border font-xs rounded h-3"> <%= sake.impression%></p>
                 </p>
                 <div class="btn-group d-flex justify-content-between">
-                  <%= link_to '詳細', sake_path(sake.id), class: "btn btn-sm btn-outline-secondary" %>
                   <% if sake.user_id == current_user.id %>
                     <%= link_to '編集', edit_sake_path(sake.id), class: "btn btn-sm btn-outline-secondary" %>
                     <%= link_to '削除', sake_path(sake.id),method: :delete, class: "btn btn-sm btn-outline-secondary"%>
@@ -50,7 +54,52 @@
             </div><!--card内枠-->
           </li>
         <%end%>
-      </ul>
-    </div><!--id:lists-->
+      </div>
+    </div><!--/自分の投稿一覧-->
+
+    <div class="container",id="favorite"><!--お気に入り表示-->
+
+      <div class="container",id="title">
+        <h2>〜お気に入り一覧〜</h2>
+      </div><%# /id:title %>
+
+      <div class="d-flex scroll-x"><!--お気に入り一覧-->
+        <% @favorites.reverse_each do |sake| %>
+            <!--card内枠-->
+            <li class="col-4 shadow-sm py-3 scroll-item"> 
+              <!--card上部-->
+              <%if sake.image.attached?%>
+                <%=link_to(sake_path(sake.id))do%>
+                  <%= image_tag sake.image, class:'card-img-top h-15 object-fit-cover'%>
+                <%end%>
+              <%else%>
+                <%=link_to(sake_path(sake.id))do%>
+                  <%= image_tag 'no-image.png', class: 'card-img-top h-15 object-fit-cover'%> 
+                <%end%>
+              <%end%>
+              <!--/card上部-->
+              <!--card下部-->
+              <div class="container">
+                <p class="card-text">
+                  <h3><%= sake.name %></h3>
+                </p>
+                <p class="font-s">
+                    　　種類:<%= sake.category %><br>
+                    総合評価:<%= sake.total.name %>
+                </p>
+                <div class="btn-group d-flex justify-content-between h-3">
+                  <%=link_to sake.user.nickname,users_show_path(sake.user_id),class:"col-7 text-body"%><!--ユーザー名-->
+                  <%if user_signed_in?%><%# && current_user.id == user_id %>
+                      <%= link_to 'リストから削除', sake_favorites_path(sake),method: :delete, class: "rounded-pill btn btn-secondary  text-right"%> <!--いいねボタンOFF-->
+                  <%end%>
+                </div>
+              </div>
+              <!--/card下部-->
+            </li>
+            <!--/card内枠-->
+        <%end%>
+      </div><!--/お気に入り一覧-->
+    </div><!--/お気に入り表示-->
+
   </div>　<!-- /album py-5 bg-light -->
 </main>

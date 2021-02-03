@@ -14,17 +14,12 @@
     </div>
   <% end %>
   <%# /エラーメッセージの表示 %>
-  <div class="container">
+  <div class="container text-body">
     <%= form_with model: @sake do |f| %>
 
     <div class="container mb-3">
-      <label class="form-colum w-25">
-        お酒の名前
-        <%if @sake.name=""%>
-          <span>*</span>
-        <%end%>
-      </label>
-      <%= f.text_field :name ,value:@sake.name,class:"form-control w-50", rows:"1" ,maxlength:"40"%>
+      <label class="form-colum w-25">お酒の名前</label>
+      <%= f.text_field :name ,class:"form-control w-50", rows:"1" ,maxlength:"40", value:@sake.name%>
     </div>
     <div class="container mb-3">
       <label class="form-colum w-100">お酒の画像</label>
@@ -68,10 +63,10 @@
     </div>
     <div class="container mb-3">
       <label class="form-colum w-25">テキスト</label>
-      <%= f.text_area :text, class:"form-control" , id:"sake-info" , placeholder:"公式テキストや他の人の感想",rows:"7" ,maxlength:"1000", value: @sake.text%>
+      <%= f.text_area :text, class:"form-control" , id:"sake-info" , placeholder:"公式テキストや他の人の感想　※引用する場合、引用元を提示してください",rows:"7" ,maxlength:"1000", value: @sake.text%>
     </div>
     <div class="container w-100 d-flex justify-content-center"> 
-      <%= f.submit '更新' ,class:"width-100 btn btn-light "%>
+      <%= f.submit '更新' ,class:"w-25 btn btn-light border"%>
     </div>
     <% end %>
   </div>
