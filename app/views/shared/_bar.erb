@@ -1,0 +1,17 @@
+<header>
+  <div class="d-flex justify-content-between border-bottom" style="background-image('header.png')">
+    <%= link_to(root_path, class: 'd-flex justify-content-center align-items-center text-body ml-3') do %>
+      <%= image_tag 'title-logo.png' , size: '185x50' , class:"img-fluid"%>
+    <% end %>
+    <div class="d-flex justify-content-around h-4 item-center my-auto">
+    <% if user_signed_in?%>
+      <%= link_to "新しい酒を見つけた！",new_sake_path,class:"btn btn-success my-2 mx-3 py-auto"%>
+      <%= link_to "マイページ", "/users/#{current_user.id}", class: "btn btn-primary my-2 mx-3",id: "user-nickname" %>
+      <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "btn btn-secondary my-2 mx-3" %>
+    <% else %>
+      <%= link_to 'ログイン', new_user_session_path, class: "btn btn-primary my-2 mx-3" %>
+      <%= link_to '新規登録', new_user_registration_path, class: "btn btn-success my-2 mx-3" %>
+    <% end %>
+    </div>
+  </div>
+</header>
