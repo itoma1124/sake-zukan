@@ -1,7 +1,4 @@
-<%= link_to(root_path, class: 'd-flex justify-content-center align-items-center') do %> <%#上段ロゴ＆タイトル%>
-  <%= image_tag 'title-logo.png' , size: '185x50' , class:"img-fluid"%>
-  <h1 class="text-body">僕の私の酒図鑑</h1>
-<% end %>
+<%= render "shared/bar"%>
 <div class="container my-2">
 <h2>ログイン</h2>
 <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>

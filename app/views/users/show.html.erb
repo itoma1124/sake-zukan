@@ -1,9 +1,9 @@
-<%= render "shared/header"%>
+<%= render "shared/bar"%>
 <main>
   <div class="album py-5 bg-light">
 
     <div class="container",id="title">
-      <h2>〜<%= current_user.nickname %>の酒図鑑〜</h2>
+      <h2>〜<%= @user.nickname %>の酒図鑑〜</h2>
       <p class="text-bottom">
         見つけた数:<%=@sakes.length%>　調べた数:<%=@complete.length%>
         <%unless @sakes.length == @complete.length%>
