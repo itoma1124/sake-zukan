@@ -1,6 +1,6 @@
 *{
   font-family: "Tsukushi A Round Gothic","筑紫A丸ゴシック";
-  border: solid 1px pink;
+  /* border: solid 1px pink; */
 }
 
 /* 文字さいず */
@@ -52,9 +52,6 @@
 /* object-fit */
 .object-fit-cover{object-fit: cover;}
 .object-fit-contain{object-fit: contain;}
-
-/* flex-wrap */
-.frex-wrap{flex-wrap: wrap;}
 
 /* Scroll */
 .scroll-x{

@@ -5,7 +5,7 @@
   <h1 class="my-4">酒メモを更新！</h1>
   <%# エラーメッセージの表示 %>
   <% if @sake.errors.any? %>
-    <div class="error-alert">
+    <div class="my-2 text-danger">
       <ul>
         <% @sake.errors.full_messages.each do |message| %>
         <li class='error-message'><%= message %></li>

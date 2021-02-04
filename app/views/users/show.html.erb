@@ -6,10 +6,12 @@
       <h2>〜<%= @user.nickname %>の酒図鑑〜</h2>
       <p class="text-bottom">
         見つけた数:<%=@sakes.length%>　調べた数:<%=@complete.length%>
-        <%unless @sakes.length == @complete.length%>
-        <span class="mx-2 text-danger font-xs ">未完成のメモがあるようです。調べて完成させましょう。</span>
-        <%else%>
-        <span class="mx-2 text-body font-xs ">新しい酒を探しましょう！</span>
+        <%if user_signed_in? && @user.id == current_user.id%>
+          <%unless @sakes.length == @complete.length %>
+          <span class="mx-2 text-danger font-xs ">未完成のメモがあるようです。調べて完成させましょう。</span>
+          <%else%>
+          <span class="mx-2 text-body font-xs ">新しい酒を探しましょう！</span>
+          <%end%>
         <%end%>
       </p>
     </div><%# /id:title %>
@@ -17,10 +19,14 @@
     <div class="container",id="lists"><!--自分の投稿一覧-->
       <div class="d-flex flex-wrap">
         <% @sakes.reverse_each do |sake| %>
-          <%if @complete.include?(sake)%>
-            <li class="col-4 shadow-sm py-3 my-1 list-group-item border-light"> 
-          <%else%>  
-            <li class="col-4 shadow-sm py-3 my-1 list-group-item border-light bg-danger" style="width: 18rem;"> 
+          <%if user_signed_in? && current_user.id == sake.user_id%>
+            <%if @complete.include?(sake) %><!---->
+              <li class="col-4 shadow-sm py-3 my-1 list-group-item border-light">
+            <%else%>  
+              <li class="col-4 shadow-sm py-3 my-1 list-group-item border-light bg-danger"> 
+            <%end%>
+          <%else%>
+            <li class="col-4 shadow-sm py-3 my-1 list-group-item border-light">
           <%end%>
             <div class="card shadow-sm py-3"> <!--card内枠-->
               <%if sake.image.attached?%>
@@ -42,14 +48,16 @@
                     <p class="border font-xs rounded h-3"> <%= sake.impression%></p>
                 </p>
                 <div class="btn-group d-flex justify-content-between">
-                  <% if sake.user_id == current_user.id %>
+                  <% if user_signed_in? && sake.user_id == current_user.id %>
                     <%= link_to '編集', edit_sake_path(sake.id), class: "btn btn-sm btn-outline-secondary" %>
                     <%= link_to '削除', sake_path(sake.id),method: :delete, class: "btn btn-sm btn-outline-secondary"%>
                   <% end %>
                 </div>
-                <% unless @complete.include?(sake) %>
-                <p class="mt-2 text-center text-danger font-xxs ">未登録の項目があります</p>
-                <% end %>
+                <%if user_signed_in?%>
+                  <% unless @complete.include?(sake) || sake.user_id != current_user.id%>
+                    <p class="mt-2 text-center text-danger font-xxs ">未登録の項目があります</p>
+                  <% end %>
+                <%end%>
               </div><!--card-body-->
             </div><!--card内枠-->
           </li>
@@ -57,7 +65,7 @@
       </div>
     </div><!--/自分の投稿一覧-->
 
-    <div class="container",id="favorite"><!--お気に入り表示-->
+    <div class="container mt-5",id="favorite"><!--お気に入り表示-->
 
       <div class="container",id="title">
         <h2>〜お気に入り一覧〜</h2>
@@ -66,7 +74,8 @@
       <div class="d-flex scroll-x"><!--お気に入り一覧-->
         <% @favorites.reverse_each do |sake| %>
             <!--card内枠-->
-            <li class="col-4 shadow-sm py-3 scroll-item"> 
+            <li class="col-4 shadow-sm py-3 scroll-item my-1 list-group-item"> 
+            
               <!--card上部-->
               <%if sake.image.attached?%>
                 <%=link_to(sake_path(sake.id))do%>
@@ -88,8 +97,8 @@
                     総合評価:<%= sake.total.name %>
                 </p>
                 <div class="btn-group d-flex justify-content-between h-3">
-                  <%=link_to sake.user.nickname,users_show_path(sake.user_id),class:"col-7 text-body"%><!--ユーザー名-->
-                  <%if user_signed_in?%><%# && current_user.id == user_id %>
+                  <%=link_to sake.user.nickname,"/users/#{sake.user_id}",class:"col-7 text-body"%><!--ユーザー名-->
+                  <%if user_signed_in? && current_user.id == @user.id %>
                       <%= link_to 'リストから削除', sake_favorites_path(sake),method: :delete, class: "rounded-pill btn btn-secondary  text-right"%> <!--いいねボタンOFF-->
                   <%end%>
                 </div>

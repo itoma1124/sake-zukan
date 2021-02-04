@@ -1,5 +1,4 @@
 <%= render "shared/header"%>
-
 <main>
   <div class="album py-5 bg-light">
     <div class="container",id="title">
@@ -33,11 +32,11 @@
 
                 <div class="btn-group d-flex justify-content-between h-3">
                   <%=link_to sake.user.nickname,"/users/#{sake.user_id}",class:"col-9 text-body"%><!--ユーザー名-->
-                  <%if user_signed_in?%><%# && current_user.id != ske.user_id %>
+                  <%if user_signed_in? && current_user.id != sake.user_id %>
                     <%unless Favorite.exists?(user_id:current_user.id,sake_id:sake.id) %>
-                      <%= link_to '❤️',sake_favorites_path(sake),method: :post, class: "btn font-xl text-right " %><!--いいねボタンON-->
+                      <%= link_to '♡',sake_favorites_path(sake),method: :post, class: "btn font-xl text-danger text-right " %><!--いいねボタンON-->
                     <%else%>
-                      <%= link_to '♡', sake_favorites_path(sake),method: :delete, class: "btn font-xl text-danger text-right"%><!--いいねボタンOFF-->
+                      <%= link_to '❤️', sake_favorites_path(sake),method: :delete, class: "btn font-xl text-right"%><!--いいねボタンOFF-->
                     <% end %>
                   <%end%>
                 </div>

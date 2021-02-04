@@ -30,7 +30,7 @@ class SakesController < ApplicationController
 
   def update
     if @sake.update(sake_params)
-      redirect_back(fallback_location: root_path)
+      redirect_to root_path
     else
       render :index
     end
@@ -38,7 +38,7 @@ class SakesController < ApplicationController
 
   def destroy
     if @sake.destroy
-      redirect_back(fallback_location: root_path)
+      redirect_to root_path
     end
   end
 
