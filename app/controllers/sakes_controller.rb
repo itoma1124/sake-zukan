@@ -4,7 +4,7 @@ class SakesController < ApplicationController
   before_action :unmach_user, only: [:edit,:update,:destroy]
 
   def index
-    @sakes = Sake.all
+    @sakes = Sake.all.page(params[:page]).per(12)
   end
 
   def new
