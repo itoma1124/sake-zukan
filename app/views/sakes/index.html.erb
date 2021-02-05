@@ -6,24 +6,26 @@
     </div><%# /id:title %>
     <div class="container ",id="lists">
       <div class="d-flex flex-wrap ">
-        <% @sakes.reverse_each do |sake| %>
+        <% @sakes.each do |sake| %>
             <!--card内枠-->
             <li class="col-3 shadow-sm py-3 my-1 list-group-item "> 
               <!--card上部-->
               <%if sake.image.attached?%>
                 <%=link_to(sake_path(sake.id))do%>
-                  <%= image_tag sake.image, class:'card-img-top h-13 object-fit-cover'%>
+                  <%= image_tag sake.image, size:'200x200',class:'card-img-top object-fit-cover'%>
                 <%end%>
               <%else%>
                 <%=link_to(sake_path(sake.id))do%>
-                  <%= image_tag 'no-image.png', class: 'card-img-top h-13 object-fit-cover'%> 
+                  <%= image_tag 'no-image.png', size:'200x200', class: 'card-img-top object-fit-cover'%> 
                 <%end%>
               <%end%>
               <!--/card上部-->
               <!--card下部-->
               <div class="container">
                 <p class="card-text">
-                  <h3><%= sake.name %></h3>
+                  <%=link_to(sake_path(sake.id),class:"text-body")do%>
+                    <h3><%= sake.name %></h3>
+                  <%end%>
                 </p>
                 <p class="font-s">
                     　　種類:<%= sake.category %><br>
@@ -46,6 +48,7 @@
             <!--/card内枠-->
         <%end%>
       </div>
+         <div class="d-flex justify-content-center"><%= paginate @sakes%></div>
     </div><!--id:lists-->
   </div>　<!-- /album py-5 bg-light -->
 </main>

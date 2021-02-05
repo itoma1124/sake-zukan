@@ -3,44 +3,43 @@
 <div class="container mt-5 d-flex"><!--上部-->
   <div class="col-5"><!--上部左-->
     <h2 class="pt-3 text-center ml-3 border-bottom"> <%=@sake.name%> </h2>
-  <div class="container my-4 ">
-    <p class="col">　　　種類 :<%=@sake.category%></p>
-    <p class="col">　　酒蔵名 :<%=@sake.maker%></p>
-    <p class="col">　　製造地 :<%=@sake.area.name%></p>
-    <h4 class="my-3 border-top pt-2"><%=@sake.user.nickname%>の評価:<%=@sake.total.name%></h4>
-    <p class="col">　のみくち : <%=@sake.taste.name%></p>
-    <p class="col">　　　酸味 : <%=@sake.sourness.name%></p>
-    <p class="col">飲みやすさ : <%=@sake.easy.name%></p>
-    <p class="col">飲んだ場所 : <%=@sake.place%></p>
-    <h4 class="my-3 border-top pt-2"><%=@sake.user.nickname%>の感想</h4>
-    <p class="card w-100 font-xs　text-body　border rounded h-min-5"><%=@sake.impression%><p>
-  </div>
-  </div>
+    <div class="container my-4 ">
+      <p class="col">　　　種類 :<%=@sake.category%></p>
+      <p class="col">　　酒蔵名 :<%=@sake.maker%></p>
+      <p class="col">　　製造地 :<%=@sake.area.name%></p>
+      <h4 class="my-3 border-top pt-2"><%=@sake.user.nickname%>の評価:<%=@sake.total.name%></h4>
+      <p class="col">　のみくち : <%=@sake.taste.name%></p>
+      <p class="col">　　　酸味 : <%=@sake.sourness.name%></p>
+      <p class="col">飲みやすさ : <%=@sake.easy.name%></p>
+      <p class="col">飲んだ場所 : <%=@sake.place%></p>
+      <h4 class="my-3 border-top pt-2"><%=@sake.user.nickname%>の感想</h4>
+      <p class="card w-100 font-xs　text-body　border rounded h-min-5"><%=@sake.impression%><p>
+      <%if user_signed_in? && current_user.id == @sake.user.id%>
+        <div class="my-2">
+        <%= link_to '編集', edit_sake_path(@sake.id), class: "btn btn-sm btn-outline-secondary my-auto"%>
+        <%= link_to '削除', sake_path(@sake.id),method: :delete, class: "btn btn-sm btn-outline-secondary my-auto"%>
+        </div>
+      <%else%>
+        <%if user_signed_in?%>
+          <%unless Favorite.exists?(user_id:current_user.id,sake_id:@sake.id) %>
+            <%= link_to '❤️登録済',sake_favorites_path(@sake),method: :post, class: "btn font-l text-light w-50 border border-light rounded-pill bg-danger" %>
+          <%else%>
+            <%= link_to '♡いいね', sake_favorites_path(@sake),method: :delete, class: "btn font-l text-danger w-50 border border-danger rounded-pill "%>
+          <% end %>
+        <%end%>
+      <%end%>
+    </div>
+  </div><!--上部左-->
   <div class="col"><!--上部右-->
     <%if user_signed_in? && @sake.image.attached?%>
       <%= image_tag @sake.image, class: 'object-fit-contain w-100 h-26'%>
     <%else%>
       <%= image_tag 'no-image.png', class: 'object-fit-contain w-100 h-26'%>
     <%end%>
-    <div class="d-flex aling-items-center mt-2">
-      <p class="container my-auto mr-2 border rounded h-min-9 w-75"><%=@sake.text %><p>
-      <%if user_signed_in? && current_user.id == @sake.user.id%>
-        <div class="my-2">
-        <%= link_to '編集', edit_sake_path(@sake.id), class: "btn btn-sm btn-outline-secondary w-100 my-auto"%>
-        <%= link_to '削除', sake_path(@sake.id),method: :delete, class: "btn btn-sm btn-outline-secondary w-100 my-auto"%>
-        </div>
-      <%else%>
-        <%if user_signed_in?%>
-          <%unless Favorite.exists?(user_id:current_user.id,sake_id:@sake.id) %>
-            <%= link_to '❤️登録済',sake_favorites_path(@sake),method: :post, class: "btn font-l text-light w-100 border border-light rounded-pill bg-danger" %>
-          <%else%>
-            <%= link_to '♡いいね', sake_favorites_path(@sake),method: :delete, class: "btn font-l text-danger w-100 border border-danger rounded-pill "%>
-          <% end %>
-        <%end%>
-      <%end%>
-    </div>
+      <p class="container my-auto mr-2 border rounded h-min-9"><%=@sake.text %><p>
   </div>
-</div>
+</div><!--上部-->
+
 <%# コメント機能 %>
 <div class="container">
   <div class="col">
@@ -60,7 +59,8 @@
     <%# コメント一覧表示 %>
     <div class="col">
       <h4 class = "">＜コメント一覧＞</h4>
-      <div class="container">
+      <div class="container mt-2">
+        <%if @comments.present?%>
          <% @comments.reverse_each do |comment| %>
             <li class="container d-flex border rounded">
               <p class="my-auto"><%= comment.user.nickname %>:</p>
@@ -70,7 +70,10 @@
               <%= link_to '削除', sake_comment_path(comment.sake_id, comment.id),method: :delete, class: "btn btn-sm btn-outline-secondary my-2"%>
               <% end %>
             </li>
-        <% end %>
+          <% end %>
+        <%else%>
+          <p>※コメントはありません※</p>
+        <%end%>
       </div>
     </div>
     <%# /コメント一覧表示 %>

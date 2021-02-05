@@ -4,7 +4,7 @@ class SakesController < ApplicationController
   before_action :unmach_user, only: [:edit,:update,:destroy]
 
   def index
-    @sakes = Sake.all
+    @sakes = Sake.all.order(id: "DESC").page(params[:page]).per(12)
   end
 
   def new
@@ -23,6 +23,10 @@ class SakesController < ApplicationController
   def show
     @comment = Comment.new
     @comments = @sake.comments.includes(:user)
+    @taste = Sake.where(taste_id:@sake.taste_id).first(3)
+    @sourness = Sake.where(sourness_id:@sake.sourness_id).first(3)
+    @easy = Sake.where(easy_id:@sake.easy_id).first(3)
+
   end
 
   def edit
@@ -30,7 +34,7 @@ class SakesController < ApplicationController
 
   def update
     if @sake.update(sake_params)
-      redirect_to root_path
+      redirect_to user_path(current_user.id)
     else
       render :index
     end
@@ -38,7 +42,7 @@ class SakesController < ApplicationController
 
   def destroy
     if @sake.destroy
-      redirect_to root_path
+      redirect_to user_path(current_user.id)
     end
   end
 

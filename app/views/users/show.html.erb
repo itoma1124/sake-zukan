@@ -18,7 +18,7 @@
 
     <div class="container",id="lists"><!--自分の投稿一覧-->
       <div class="d-flex flex-wrap">
-        <% @sakes.reverse_each do |sake| %>
+        <% @sakes_paged.each do |sake| %>
           <%if user_signed_in? && current_user.id == sake.user_id%>
             <%if @complete.include?(sake) %><!---->
               <li class="col-4 shadow-sm py-3 my-1 list-group-item border-light">
@@ -31,11 +31,11 @@
             <div class="card shadow-sm py-3"> <!--card内枠-->
               <%if sake.image.attached?%>
                 <%=link_to(sake_path(sake.id))do%>
-                  <%= image_tag sake.image, class:'card-img-top h-15 object-fit-cover'%>
+                  <%= image_tag sake.image, size:'326x326',class:'card-img-top object-fit-cover'%>
                 <%end%>
               <%else%>
                 <%=link_to(sake_path(sake.id))do%>
-                  <%= image_tag 'no-image.png', class: 'card-img-top h-15 object-fit-cover'%> 
+                  <%= image_tag 'no-image.png', size:'326x326',class: 'card-img-top object-fit-cover'%> 
                 <%end%> 
               <%end%>
               <div class="container">
@@ -63,12 +63,13 @@
           </li>
         <%end%>
       </div>
+      <div class="d-flex justify-content-center"><%= paginate @sakes_paged%></div>
     </div><!--/自分の投稿一覧-->
 
     <div class="container mt-5",id="favorite"><!--お気に入り表示-->
 
       <div class="container",id="title">
-        <h2>〜お気に入り一覧〜</h2>
+        <h2>〜お気に入り一覧〜　 <span class="font-m"><%=@favorites.length%>件</span></h2>
       </div><%# /id:title %>
 
       <div class="d-flex scroll-x"><!--お気に入り一覧-->
@@ -79,11 +80,11 @@
               <!--card上部-->
               <%if sake.image.attached?%>
                 <%=link_to(sake_path(sake.id))do%>
-                  <%= image_tag sake.image, class:'card-img-top h-15 object-fit-cover'%>
+                  <%= image_tag sake.image, size:'326x326',class:'card-img-top object-fit-cover'%>
                 <%end%>
               <%else%>
                 <%=link_to(sake_path(sake.id))do%>
-                  <%= image_tag 'no-image.png', class: 'card-img-top h-15 object-fit-cover'%> 
+                  <%= image_tag 'no-image.png', size:'326x326',class: 'card-img-top object-fit-cover '%> 
                 <%end%>
               <%end%>
               <!--/card上部-->
@@ -109,6 +110,5 @@
         <%end%>
       </div><!--/お気に入り一覧-->
     </div><!--/お気に入り表示-->
-
-  </div>　<!-- /album py-5 bg-light -->
+  </div><!-- /album py-5 bg-light -->
 </main>

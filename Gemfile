@@ -69,3 +69,5 @@ gem 'gimei'
 
 gem 'active_hash'
 
+gem'kaminari'
+
