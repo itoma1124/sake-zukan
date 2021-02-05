@@ -59,7 +59,8 @@
     <%# コメント一覧表示 %>
     <div class="col">
       <h4 class = "">＜コメント一覧＞</h4>
-      <div class="container">
+      <div class="container mt-2">
+        <%if @comments.present?%>
          <% @comments.reverse_each do |comment| %>
             <li class="container d-flex border rounded">
               <p class="my-auto"><%= comment.user.nickname %>:</p>
@@ -69,7 +70,10 @@
               <%= link_to '削除', sake_comment_path(comment.sake_id, comment.id),method: :delete, class: "btn btn-sm btn-outline-secondary my-2"%>
               <% end %>
             </li>
-        <% end %>
+          <% end %>
+        <%else%>
+          <p>※コメントはありません※</p>
+        <%end%>
       </div>
     </div>
     <%# /コメント一覧表示 %>
