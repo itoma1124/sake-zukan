@@ -11,7 +11,13 @@
       飲んだことある気がする、飲んでみたら味わったか覚えてない…<br>そんな経験はありますか？飲んで調べて自分だけの酒図鑑を完成させましょう。<br>これで安心ですね。
     <%end%>
   </p>
-  <div class="d-flex justify-content-end h-4 item-center my-auto border-bottom"> <%#下段ボタン群%>
+  <div class="d-flex justify-content-between item-center my-auto border-bottom"> <%#下段ボタン群%>
+    <%= search_form_for @q, url: sakes_search_path, class:"d-flex my-auto ml-3 h-2" do |f| %>
+      <%= f.label :name_or_impression_or_text, "キーワード検索:",class:"my-auto mr-2"%>
+      <%= f.search_field :name_or_impression_or_text_cont %>
+      <%= f.submit "検索" %>
+    <% end %>
+    <div class="d-flex item-center my-auto mr-3">
     <% if user_signed_in?%>
       <%= link_to "新しい酒を見つけた！",new_sake_path,class:"btn btn-success my-2 mx-3"%>
       <%= link_to "マイページ", "/users/#{current_user.id}", class: "btn btn-primary my-2 mx-3",id: "user-nickname" %>
@@ -20,5 +26,6 @@
       <%= link_to 'ログイン', new_user_session_path, class: "btn btn-primary my-2 mx-3" %>
       <%= link_to '新規登録', new_user_registration_path, class: "btn btn-success my-2 mx-3" %>
     <% end %>
+    </div>
   </div>
 </header>

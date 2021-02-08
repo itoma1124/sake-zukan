@@ -15,7 +15,7 @@
   <% end %>
   <%# /エラーメッセージの表示 %>
   <div class="container">
-    <%= form_with model: @sake do |f| %>
+    <%= form_with model: @sake, local: true do |f| %>
 
     <div class="container mb-3">
       <label class="form-colum w-25">お酒の名前</label>

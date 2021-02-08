@@ -71,3 +71,4 @@ gem 'active_hash'
 
 gem'kaminari'
 
+gem 'ransack'
