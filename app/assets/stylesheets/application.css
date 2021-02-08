@@ -69,3 +69,9 @@
 .scroll-item{
   display: inline-block;
 }
+
+a.sort_link{
+  color: black;
+  /* border: solid 1px gray; */
+  /* border-radius: 10px; */
+}

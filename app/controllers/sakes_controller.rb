@@ -4,8 +4,19 @@ class SakesController < ApplicationController
   before_action :unmach_user, only: [:edit,:update,:destroy]
 
   def index
-    @sakes = Sake.all.order(id: "DESC").page(params[:page]).per(12)
+    @q = Sake.ransack(params[:q])
+    @sakes = @q.result(distinct: true).order(id: "DESC").page(params[:page]).per(12)
+    @name = Sake.select("name").distinct
+    @category = Sake.select("category").distinct
+    @sake_rank = Sake.find(Favorite.group(:sake_id).order('count(sake_id) desc').limit(10).pluck(:sake_id))
+    @user_rank = User.find(Sake.group(:user_id).order('count(user_id) desc').limit(5).pluck(:user_id))
   end
+
+  def search
+    index
+    render:index
+  end
+
 
   def new
     @sake = Sake.new
@@ -13,14 +24,16 @@ class SakesController < ApplicationController
 
   def create
     @sake = Sake.new(sake_params)
-    if @sake.save
-      redirect_to root_path
+    if @sake.valid?
+      @sake.save
+      redirect_to user_path(current_user.id)
     else
       render :new
     end
   end
 
   def show
+    @q = Sake.ransack(params[:q])
     @comment = Comment.new
     @comments = @sake.comments.includes(:user)
     @taste = Sake.where(taste_id:@sake.taste_id).first(3)
@@ -34,9 +47,9 @@ class SakesController < ApplicationController
 
   def update
     if @sake.update(sake_params)
-      redirect_to user_path(current_user.id)
+      redirect_to sake_path(@sake.id)
     else
-      render :index
+      render :edit
     end
   end
 
