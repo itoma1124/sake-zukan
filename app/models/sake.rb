@@ -12,6 +12,6 @@ class Sake < ApplicationRecord
   belongs_to :taste
   belongs_to :total
 
-  validates :name, presence:"酒の名前は必須です"
+  validates :name, presence:true
 
 end

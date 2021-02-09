@@ -1,0 +1,12 @@
+ja:
+ activerecord:
+   attributes:
+     user:
+       nickname: ニックネーム
+       birthday: 誕生日
+
+     sake:
+       name: 酒の名前
+       impression:  感想
+       image: 画像
+       place:  場所
