@@ -39,7 +39,10 @@
                 <%end%> 
               <%end%>
               <div class="container">
-                  <h3><%= sake.name %></h3>
+                  <div class="card-text mt-2 px-2 d-flex justify-content-between">
+                    <h3 ><%= sake.name %></h3>
+                    <div class="font-xl text-danger text-right">❤️ <%=sake.favorites.length%></div>
+                  </div>
                 <div class="font-s">
                   　　種類:<%= sake.category %><br>
                   総合評価:<%= sake.total.name %>
@@ -88,9 +91,10 @@
               <!--/card上部-->
               <!--card下部-->
               <div class="container">
-                <p class="card-text">
+                <div class="card-text mt-2 d-flex justify-content-between">
                   <h3><%= sake.name %></h3>
-                </p>
+                  <div class="font-xl text-danger text-right">❤️ <%=sake.favorites.length%></div>
+                </div>
                 <p class="font-s">
                     　　種類:<%= sake.category %><br>
                     総合評価:<%= sake.total.name %>

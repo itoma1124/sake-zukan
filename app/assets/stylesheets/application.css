@@ -56,13 +56,13 @@
 /* Scroll */
 .scroll-x{
   width: 100%;
-  overflow-x: auto;
+  overflow-x: scroll;
 	white-space: nowrap;
 }
 
 .scroll-y{
   height: 100%;
-  overflow-y: auto;
+  overflow-y: scroll;
 	white-space: nowrap;
 }
 
