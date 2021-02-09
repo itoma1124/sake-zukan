@@ -9,4 +9,6 @@ class User < ApplicationRecord
   has_many :sakes
   has_many :comments,  dependent: :destroy
   has_many :favorites, dependent: :destroy
+
+  validates :nickname, presence:true
 end
