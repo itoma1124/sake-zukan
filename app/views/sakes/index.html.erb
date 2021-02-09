@@ -20,7 +20,7 @@
       <div class="d-flex flex-wrap">
         <% @sakes.each do |sake| %>
             <!--card内枠-->
-            <li class="col-3 shadow-sm py-3 my-1 list-group-item "> 
+            <li class="col-3 shadow-sm my-1 list-group-item "> 
               <!--card上部-->
               <%if sake.image.attached?%>
                 <%=link_to(sake_path(sake.id))do%>
@@ -71,7 +71,7 @@
     </div>
     <div class="container d-flex scroll-x",id="lists">
       <%@sake_rank.each.with_index(1) do|sake,i|%>
-        <li class="col-3 shadow-sm py-3 my-1 list-group-item "> 
+        <li class="col-3 shadow-sm my-1 list-group-item "> 
           <!--card上部-->
           <%if sake.image.attached?%>
             <%=link_to(sake_path(sake.id))do%>
@@ -84,15 +84,23 @@
           <%end%>
           <div class="d-flex justify-content-between">
             <%=link_to(sake_path(sake.id),class:"text-body")do%>
-              <div>第<%=i%>位</div>
+               <% if i == 1%>
+                <div>🥇第<%=i%>位</div>
+              <%elsif i == 2%>
+                <div>🥈第<%=i%>位</div>
+              <%elsif i == 3%>
+                <div>🥉第<%=i%>位</div>
+              <%else%>
+                <div>第<%=i%>位</div>
+              <%end%>
               <h3 class="my-auto"><%= sake.name %></h3>
             <%end%>
             <div class="d-flex">
               <%if user_signed_in? && current_user.id != sake.user_id %>
                 <%unless Favorite.exists?(user_id:current_user.id,sake_id:sake.id) %>
-                  <%= link_to "♡ #{sake.favorites.length}",sake_favorites_path(sake),method: :post, class: "btn font-xl text-danger text-right " %><!--いいねボタンON-->
+                  <%= link_to "♡ #{sake.favorites.length}",sake_favorites_path(sake),method: :post, class: "btn font-xl text-danger text-right mt-3" %><!--いいねボタンON-->
                 <%else%>
-                  <%= link_to "❤️ #{sake.favorites.length}", sake_favorites_path(sake),method: :delete, class: "btn font-xl text-danger"%><!--いいねボタンOFF-->
+                  <%= link_to "❤️ #{sake.favorites.length}", sake_favorites_path(sake),method: :delete, class: "btn font-xl text-danger mt-3"%><!--いいねボタンOFF-->
                 <% end %>
               <%end%>
             </div>
@@ -110,7 +118,15 @@
       <%@user_rank.each.with_index(1) do|user,i|%>
         <li class="col-3 shadow-sm py-3 my-1 list-group-item "> 
           <%=link_to(user_path(user.id),class:"text-body")do%>
-            <div>第<%=i%>位</div>
+            <% if i == 1%>
+                <div>🥇第<%=i%>位</div>
+              <%elsif i == 2%>
+                <div>🥈第<%=i%>位</div>
+              <%elsif i == 3%>
+                <div>🥉第<%=i%>位</div>
+              <%else%>
+                <div>第<%=i%>位</div>
+              <%end%>
             <h3 class="my-auto"><%= user.nickname %></h3>
             投稿:<%=user.sakes.length%>
           <%end%>
