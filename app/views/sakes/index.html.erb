@@ -119,14 +119,14 @@
         <li class="col-3 shadow-sm py-3 my-1 list-group-item "> 
           <%=link_to(user_path(user.id),class:"text-body")do%>
             <% if i == 1%>
-                <div>🥇第<%=i%>位</div>
-              <%elsif i == 2%>
-                <div>🥈第<%=i%>位</div>
-              <%elsif i == 3%>
-                <div>🥉第<%=i%>位</div>
-              <%else%>
-                <div>第<%=i%>位</div>
-              <%end%>
+              <div>🥇第<%=i%>位</div>
+            <%elsif i == 2%>
+              <div>🥈第<%=i%>位</div>
+            <%elsif i == 3%>
+              <div>🥉第<%=i%>位</div>
+            <%else%>
+              <div>第<%=i%>位</div>
+            <%end%>
             <h3 class="my-auto"><%= user.nickname %></h3>
             投稿:<%=user.sakes.length%>
           <%end%>
