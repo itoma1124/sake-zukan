@@ -39,15 +39,18 @@
                 <%end%> 
               <%end%>
               <div class="container">
-                  <div class="card-text mt-2 px-2 d-flex justify-content-between">
-                    <h3 ><%= sake.name %></h3>
-                    <div class="font-xl text-danger text-right">❤️ <%=sake.favorites.length%></div>
-                  </div>
-                <div class="font-s">
-                  　　種類:<%= sake.category %><br>
-                  総合評価:<%= sake.total.name %>
-                  <div class="border font-xs rounded h-3 p-2"> <%= sake.impression%></div>
+                <div class="card-text mt-2 px-2 d-flex justify-content-between">
+                  <h3 ><%= sake.name %></h3>
+                  <div class="font-xxs"><%=sake.created_at%></div>
                 </div>
+                <div class="font-s d-flex justify-content-between">
+                  <div>
+                    　　種類:<%= sake.category %><br>
+                    総合評価:<%= sake.total.name %>
+                  </div>
+                  <div class="font-xl text-danger text-right">❤️ <%=sake.favorites.length%></div>
+                </div>
+                  <div class="border font-xs rounded h-3 p-2"> <%= sake.impression%></div>
                 <div class="btn-group d-flex justify-content-between">
                   <% if user_signed_in? && sake.user_id == current_user.id %>
                     <%= link_to '編集', edit_sake_path(sake.id), class: "btn btn-sm btn-outline-secondary" %>
