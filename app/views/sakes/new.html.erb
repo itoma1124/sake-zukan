@@ -24,6 +24,9 @@
     <div class="container mb-3">
       <label class="form-colum w-100">お酒の画像</label>
       <%= f.file_field :image, id:"sake-image", class:"btn-light" %>
+      <div class="container d-flex">
+        <div id="image-list"></div> <!--preview image-->
+      </div>
     </div>
     <div class="container mb-3">
       <label class="form-colum w-25">感想</label>
