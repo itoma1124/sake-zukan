@@ -36,10 +36,7 @@ class SakesController < ApplicationController
     @q = Sake.ransack(params[:q])
     @comment = Comment.new
     @comments = @sake.comments.includes(:user)
-    @taste = Sake.where(taste_id:@sake.taste_id).first(3)
-    @sourness = Sake.where(sourness_id:@sake.sourness_id).first(3)
-    @easy = Sake.where(easy_id:@sake.easy_id).first(3)
-
+    @similar = Sake.where(taste_id:@sake.taste_id,sourness_id:@sake.sourness_id,easy_id:@sake.easy_id).where.not(taste_id:0).where.not(id:@sake.id)
   end
 
   def edit

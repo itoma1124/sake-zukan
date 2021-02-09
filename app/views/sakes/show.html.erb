@@ -22,9 +22,9 @@
       <%else%>
         <%if user_signed_in?%>
           <%unless Favorite.exists?(user_id:current_user.id,sake_id:@sake.id) %>
-            <%= link_to '❤️登録済',sake_favorites_path(@sake),method: :post, class: "btn font-l text-light w-50 border border-light rounded-pill bg-danger" %>
+            <%= link_to "♡ #{@sake.favorites.length}", sake_favorites_path(@sake),method: :post, class: "btn font-l text-danger w-50 border border-danger rounded-pill "%>
           <%else%>
-            <%= link_to '♡いいね', sake_favorites_path(@sake),method: :delete, class: "btn font-l text-danger w-50 border border-danger rounded-pill "%>
+            <%= link_to "❤️ #{@sake.favorites.length}",sake_favorites_path(@sake),method: :delete, class: "btn font-l text-light w-50 border border-light rounded-pill bg-danger" %>
           <% end %>
         <%end%>
       <%end%>
@@ -36,12 +36,12 @@
     <%else%>
       <%= image_tag 'no-image.png', class: 'object-fit-contain w-100 h-26'%>
     <%end%>
-      <p class="container my-auto mr-2 border rounded h-min-9"><%=@sake.text %><p>
+      <p class="container mt-2 mr-2 border rounded h-min-9"><%=@sake.text %><p>
   </div>
 </div><!--上部-->
 
 <%# コメント機能 %>
-<div class="container">
+<div class="container mb-3">
   <div class="col">
     <h2>コメント</h2>
     <%# コメント投稿機能 %>
@@ -80,3 +80,44 @@
   </div>
 </div>
 <%# /コメント %>
+
+ <%# 似ている酒表示 %>
+ <%if @similar.any?%>
+  <div class="container">
+    <h3>似ているお酒</h3>
+  </div>
+  <div class="container d-flex scroll-x",id="lists">
+    <%@similar.each do|sake,i|%>
+      <li class="col-3 shadow-sm my-1 list-group-item ">
+        <!--card上部-->
+        <%if sake.image.attached?%>
+          <%=link_to(sake_path(sake.id))do%>
+            <%= image_tag sake.image, size:'200x200',class:'card-img-top object-fit-cover'%>
+          <%end%>
+        <%else%>
+          <%=link_to(sake_path(sake.id))do%>
+            <%= image_tag 'no-image.png', size:'200x200', class: 'card-img-top object-fit-cover'%> 
+          <%end%>
+        <%end%>
+        <div class="d-flex justify-content-between">
+          <div>
+            <%=link_to(sake_path(sake.id),class:"text-body")do%>
+              <h3 class="my-auto"><%= sake.name %></h3>
+            <%end%>
+            のみくち:<%=sake.taste.name%>
+          </div>
+          <div class="d-flex">
+            <%if user_signed_in? && current_user.id != sake.user_id %>
+              <%unless Favorite.exists?(user_id:current_user.id,sake_id:sake.id) %>
+                <%= link_to "♡ #{sake.favorites.length}",sake_favorites_path(sake),method: :post, class: "btn font-xl text-danger text-right mt-3" %><!--いいねボタンON-->
+              <%else%>
+                <%= link_to "❤️ #{sake.favorites.length}", sake_favorites_path(sake),method: :delete, class: "btn font-xl text-danger mt-3"%><!--いいねボタンOFF-->
+              <% end %>
+            <%end%>
+          </div>
+        </div>
+      </li>
+    <%end%>
+  </div>
+<%end%>
+<%# /似ている酒表示 %>
