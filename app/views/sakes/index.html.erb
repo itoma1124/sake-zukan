@@ -45,13 +45,15 @@
                 </p>
 
                 <div class="btn-group d-flex justify-content-between h-3">
-                  <%=link_to sake.user.nickname,"/users/#{sake.user_id}",class:"col-9 text-body"%><!--ユーザー名-->
+                  <%=link_to sake.user.nickname,"/users/#{sake.user_id}",class:"col-7 text-body"%><!--ユーザー名-->
                   <%if user_signed_in? && current_user.id != sake.user_id %>
                     <%unless Favorite.exists?(user_id:current_user.id,sake_id:sake.id) %>
-                      <%= link_to '♡',sake_favorites_path(sake),method: :post, class: "btn font-xl text-danger text-right " %><!--いいねボタンON-->
+                      <%= link_to "♡ #{sake.favorites.length}",sake_favorites_path(sake),method: :post, class: "btn font-xl text-danger text-right " %><!--いいねボタンON-->
                     <%else%>
-                      <%= link_to '❤️', sake_favorites_path(sake),method: :delete, class: "btn font-xl text-right"%><!--いいねボタンOFF-->
+                      <%= link_to "❤️ #{sake.favorites.length}", sake_favorites_path(sake),method: :delete, class: "btn font-xl text-danger text-right"%><!--いいねボタンOFF-->
                     <% end %>
+                  <%else%>
+                    <div class="font-xl text-danger text-right">❤️ <%=sake.favorites.length%></div>
                   <%end%>
                 </div>
               </div>
@@ -88,9 +90,9 @@
             <div class="d-flex">
               <%if user_signed_in? && current_user.id != sake.user_id %>
                 <%unless Favorite.exists?(user_id:current_user.id,sake_id:sake.id) %>
-                  <%= link_to "♡ x#{sake.favorites.length}",sake_favorites_path(sake),method: :post, class: "btn font-xl text-danger text-right " %><!--いいねボタンON-->
+                  <%= link_to "♡ #{sake.favorites.length}",sake_favorites_path(sake),method: :post, class: "btn font-xl text-danger text-right " %><!--いいねボタンON-->
                 <%else%>
-                  <%= link_to "❤️ x#{sake.favorites.length}", sake_favorites_path(sake),method: :delete, class: "btn font-xl text-danger"%><!--いいねボタンOFF-->
+                  <%= link_to "❤️ #{sake.favorites.length}", sake_favorites_path(sake),method: :delete, class: "btn font-xl text-danger"%><!--いいねボタンOFF-->
                 <% end %>
               <%end%>
             </div>
