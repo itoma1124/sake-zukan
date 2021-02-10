@@ -3,6 +3,7 @@ class SakesController < ApplicationController
   before_action :sake_set, only: [:edit, :show, :update, :destroy]
   before_action :unmach_user, only: [:edit,:update,:destroy]
 
+
   def index
     @q = Sake.ransack(params[:q])
     @sakes = @q.result(distinct: true).order(id: "DESC").page(params[:page]).per(12)

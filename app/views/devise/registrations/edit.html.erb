@@ -1,25 +1,55 @@
-<h2>Change your password</h2>
+<%= render "shared/bar"%>
 
-<%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :put }) do |f| %>
+<div class="container my-2">
+<h2>ユーザー情報更新</h2>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
   <%= render "devise/shared/error_messages", resource: resource %>
-  <%= f.hidden_field :reset_password_token %>
 
-  <div class="field">
-    <%= f.label :password, "New password" %><br />
+
+  <div class="container my-2">
+    <%= f.label :nickname %><br />
+    <%= f.text_field :nickname,class:"form-control w-75" %>
+  </div>
+
+  <div class="container my-2">
+    <%= f.label :icon,"アイコン画像" %><br />
+    <%= f.file_field :icon,class:"btn-light",id:"sake-image" %>
+    <div class="container d-flex">
+        <div>
+          <div class="ml-2"><現在の画像></div>
+          <%= image_tag current_user.icon, class:"h-5"%>
+        </div>
+        <p class="mt-5 mx-2">▶️</p>
+        <div id="image-list"></div> <!--preview image-->
+      </div>
+  </div>
+
+  <div class="container my-2">
+    <%= f.label :email %><br />
+    <%= f.email_field :email, autofocus: true, autocomplete: "email",class:"form-control w-75" %>
+  </div>
+
+  <div class="container my-2">
+    <%= f.label :password,"パスワード (更新が必要な場合のみ入力)" %>
     <% if @minimum_password_length %>
-      <em>(<%= @minimum_password_length %> characters minimum)</em><br />
-    <% end %>
-    <%= f.password_field :password, autofocus: true, autocomplete: "new-password" %>
+    <em>(英数<%= @minimum_password_length %> 文字以上)</em>
+    <% end %><br />
+    <%= f.password_field :password, autocomplete: "new-password",class:"form-control w-75" %>
   </div>
 
-  <div class="field">
-    <%= f.label :password_confirmation, "Confirm new password" %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
+  <div class="container my-2">
+    <%= f.label :password_confirmation ,"パスワード(更新が必要な場合のみ入力)"%><br />
+    <%= f.password_field :password_confirmation, autocomplete: "new-password",class:"form-control w-75" %>
   </div>
 
-  <div class="actions">
-    <%= f.submit "Change my password" %>
+   <div class="container my-2">
+    <%= f.label :current_password ,"現在のパスワード(必須)",class:"text-danger"%><br />
+    <%= f.password_field :current_password, autocomplete: "new-password",class:"form-control w-75" %>
+  </div>
+
+  <div class="container my-2">
+    <%= f.submit "更新" ,class:"btn-light"%>
+    <%= link_to 'トップへ戻る', root_path, class: "my-2 col" %>
   </div>
 <% end %>
-
-<%= render "devise/shared/links" %>
+</div>
