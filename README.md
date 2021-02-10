@@ -40,6 +40,7 @@
     詳細表示
       - 酒情報の表示
       - コメント投稿/表示/削除
+      - 似ているお酒の表示
     新規投稿
       - 画像投稿
       - 画像プレビュー
@@ -133,3 +134,24 @@
   ![image](sake-zukan.png)
 
 ## ローカルでの動作方法
+
+  ruby 2.6.5
+   Rails 6.0.3.4
+
+  % git clone https://github.com/itoma1124/sake-zukan.git
+
+  % rails g devise:install
+
+  % brew install imagemagick
+
+  % rails active_storage:install
+
+  % bundle install
+
+  % rails db:create
+
+  % rails db:migrate
+
+  % rails s
+
+

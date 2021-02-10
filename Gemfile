@@ -70,6 +70,6 @@ gem 'rails-i18n'
 
 gem 'active_hash'
 
-gem'kaminari'
+gem 'kaminari'
 
 gem 'ransack'
