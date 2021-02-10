@@ -1,9 +1,14 @@
 <%= render "shared/bar"%>
 <main>
   <div class="album py-5 bg-light">
-
     <div class="container",id="title">
-      <h2>〜<%= @user.nickname %>の酒図鑑〜</h2>
+      <h2>〜
+      <%if @user.icon.attached?%>
+        <%=image_tag @user.icon,size:'60x60',class:"object-fit-cover rounded-circle"%>
+      <%else%>
+        <%=image_tag 'no-icon.png',size:'60x60',class:"object-fit-cover rounded-circle border"%>
+      <%end%>
+      <%= @user.nickname %>の酒図鑑〜</h2>
       <p class="text-bottom">
         見つけた数:<%=@sakes.length%>　調べた数:<%=@complete.length%>
         <%if user_signed_in? && @user.id == current_user.id%>
@@ -18,17 +23,18 @@
 
     <div class="container",id="lists"><!--自分の投稿一覧-->
       <div class="d-flex flex-wrap">
-        <% @sakes_paged.each do |sake| %>
+       <% @sakes_paged.each do |sake| %>
           <%if user_signed_in? && current_user.id == sake.user_id%>
             <%if @complete.include?(sake) %><!---->
-              <li class="col-4 shadow-sm py-3 my-1 list-group-item border-light">
+              <li class="col-4 shadow-sm my-1 list-group-item border-light">
             <%else%>  
-              <li class="col-4 shadow-sm py-3 my-1 list-group-item border-light bg-danger"> 
+              <li class="col-4 shadow-sm my-1 list-group-item border-light bg-danger">
             <%end%>
           <%else%>
             <li class="col-4 shadow-sm py-3 my-1 list-group-item border-light">
           <%end%>
-            <div class="card shadow-sm py-3"> <!--card内枠-->
+            <div class="card shadow-sm pb-3 pt-1 mt-2"> <!--card内枠-->
+                  <div class="font-xxs ml-auto"><%=sake.created_at%></div>
               <%if sake.image.attached?%>
                 <%=link_to(sake_path(sake.id))do%>
                   <%= image_tag sake.image, size:'326x326',class:'card-img-top object-fit-cover'%>
@@ -41,7 +47,6 @@
               <div class="container">
                 <div class="card-text mt-2 px-2 d-flex justify-content-between">
                   <h3 ><%= sake.name %></h3>
-                  <div class="font-xxs"><%=sake.created_at%></div>
                 </div>
                 <div class="font-s d-flex justify-content-between">
                   <div>
@@ -51,18 +56,18 @@
                   <div class="font-xl text-danger text-right">❤️ <%=sake.favorites.length%></div>
                 </div>
                   <div class="border font-xs rounded h-3 p-2"> <%= sake.impression%></div>
-                <div class="btn-group d-flex justify-content-between">
+                <div class="btn-group d-flex justify-content-between pt-1">
                   <% if user_signed_in? && sake.user_id == current_user.id %>
                     <%= link_to '編集', edit_sake_path(sake.id), class: "btn btn-sm btn-outline-secondary" %>
                     <%= link_to '削除', sake_path(sake.id),method: :delete, class: "btn btn-sm btn-outline-secondary"%>
                   <% end %>
                 </div>
+              </div><!--card-body-->
                 <%if user_signed_in?%>
                   <% unless @complete.include?(sake) || sake.user_id != current_user.id%>
-                    <p class="mt-2 text-center text-danger font-xxs ">未登録の項目があります</p>
+                    <div class="mt-2 text-center text-danger font-xxs ">未登録の項目があります</div>
                   <% end %>
                 <%end%>
-              </div><!--card-body-->
             </div><!--card内枠-->
           </li>
         <%end%>
@@ -117,3 +122,4 @@
     </div><!--/お気に入り表示-->
   </div><!-- /album py-5 bg-light -->
 </main>
+<%= render "shared/footer"%>
