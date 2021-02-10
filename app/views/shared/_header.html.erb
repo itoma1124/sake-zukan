@@ -13,13 +13,22 @@
   </p>
   <div class="d-flex justify-content-between item-center my-auto border-bottom"> <%#下段ボタン群%>
     <%= search_form_for @q, url: sakes_search_path, class:"d-flex my-auto ml-3 h-2" do |f| %>
+      <%if user_signed_in?%>
+        <%if current_user.icon.attached?%>
+          <%=image_tag current_user.icon,size:'40x40',class:"object-fit-cover rounded-circle mr-2"%>
+        <%else%>
+          <%=image_tag 'no-icon.png',size:'40x40',class:"object-fit-cover rounded-circle mr-2 border"%>
+        <%end%>
+      <%end%>
       <%= f.label :name_or_impression_or_text, "キーワード検索:",class:"my-auto mr-2"%>
       <%= f.search_field :name_or_impression_or_text_cont %>
-      <%= f.submit "検索" %>
+      <%= f.submit "検索" ,class:"ml-2"%>
     <% end %>
     <div class="d-flex item-center my-auto mr-3">
     <% if user_signed_in?%>
       <%= link_to "新しい酒を見つけた！",new_sake_path,class:"btn btn-success my-2 mx-3"%>
+      <%= link_to edit_user_registration_path do%>
+      <%end%>
       <%= link_to "マイページ", "/users/#{current_user.id}", class: "btn btn-primary my-2 mx-3",id: "user-nickname" %>
       <%= link_to 'ログアウト', destroy_user_session_path, method: :delete, class: "btn btn-secondary my-2 mx-3" %>
     <% else %>

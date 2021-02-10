@@ -12,7 +12,7 @@
           <%= f.collection_select :category_eq, @category, :category, :category, include_blank: '指定なし'%>
           <%= sort_link(@q, :total_id, "評価:")%>
           <%= f.collection_select :total_id_eq, Total.all, :id, :name, include_blank: '指定なし'%>
-          <%= f.submit "検索" %>
+          <%= f.submit "絞り込む",class:"ml-2" %>
         <% end %>
       <%# /検索バー %>
     </div><%# /id:title %>
@@ -34,18 +34,18 @@
               <!--/card上部-->
               <!--card下部-->
               <div class="container">
-                <p class="card-text">
+                <p class="card-text"><!--酒の名前-->
                   <%=link_to(sake_path(sake.id),class:"text-body")do%>
                     <h3><%= sake.name %></h3>
                   <%end%>
                 </p>
-                <p class="font-s">
+                <p class="font-s"><!--酒情報-->
                     　　種類:<%= sake.category %><br>
                     総合評価:<%= sake.total.name %>
                 </p>
 
                 <div class="btn-group d-flex justify-content-between h-3">
-                  <%=link_to sake.user.nickname,"/users/#{sake.user_id}",class:"col-7 text-body"%><!--ユーザー名-->
+                  <%=link_to sake.user.nickname,user_path(sake.user_id),class:"col-7 text-body"%><!--ユーザー名-->
                   <%if user_signed_in? && current_user.id != sake.user_id %>
                     <%unless Favorite.exists?(user_id:current_user.id,sake_id:sake.id) %>
                       <%= link_to "♡ #{sake.favorites.length}",sake_favorites_path(sake),method: :post, class: "btn font-xl text-danger text-right " %><!--いいねボタンON-->
@@ -56,6 +56,7 @@
                     <div class="font-xl text-danger text-right">❤️ <%=sake.favorites.length%></div>
                   <%end%>
                 </div>
+
               </div>
               <!--/card下部-->
             </li>
@@ -95,20 +96,21 @@
               <%end%>
               <h3 class="my-auto"><%= sake.name %></h3>
             <%end%>
-            <div class="d-flex">
+
               <%if user_signed_in? && current_user.id != sake.user_id %>
                 <%unless Favorite.exists?(user_id:current_user.id,sake_id:sake.id) %>
                   <%= link_to "♡ #{sake.favorites.length}",sake_favorites_path(sake),method: :post, class: "btn font-xl text-danger text-right mt-3" %><!--いいねボタンON-->
                 <%else%>
                   <%= link_to "❤️ #{sake.favorites.length}", sake_favorites_path(sake),method: :delete, class: "btn font-xl text-danger mt-3"%><!--いいねボタンOFF-->
                 <% end %>
+              <%else%>
+                  <div class="btn font-xl text-danger mt-3">❤️ <%=sake.favorites.length%></div>
               <%end%>
-            </div>
           </div>
         </li>
       <%end%>
     </div>
-    <%# いいねランキング表示 %>
+    <%# /いいねランキング表示 %>
 
      <%# ユーザーランキング表示 %>
     <div class="container mt-5">
@@ -116,7 +118,7 @@
     </div>
     <div class="container d-flex scroll-x",id="lists">
       <%@user_rank.each.with_index(1) do|user,i|%>
-        <li class="col-3 shadow-sm py-3 my-1 list-group-item "> 
+        <li class="col-3 shadow-sm py-3 my-1 list-group-item"> 
           <%=link_to(user_path(user.id),class:"text-body")do%>
             <% if i == 1%>
               <div>🥇第<%=i%>位</div>
@@ -127,14 +129,22 @@
             <%else%>
               <div>第<%=i%>位</div>
             <%end%>
-            <h3 class="my-auto"><%= user.nickname %></h3>
-            投稿:<%=user.sakes.length%>
+            <div class="d-flex">
+              <%if user.icon.attached?%>
+                <%=image_tag user.icon,size:'60x60',class:"object-fit-cover rounded-circle mr-3"%>
+              <%else%>
+                <%=image_tag 'no-icon.png',size:'60x60',class:"object-fit-cover rounded-circle mr-3 border"%>
+              <%end%>
+              <div>
+                <h3 class="my-auto"><%= user.nickname %></h3>
+                投稿:<%=user.sakes.length%>
+              </div>
+            </div>
           <%end%>
         </li>
       <%end%>  
     </div>
-    <%# いいねランキング表示 %>
-
-
+    <%# /ユーザーランキング表示 %>
   </div><!-- /album py-5 bg-light -->
 </main>
+<%= render "shared/footer"%>

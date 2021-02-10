@@ -5,10 +5,10 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   # -Association-
-  # has_one_attached :image
   has_many :sakes
   has_many :comments,  dependent: :destroy
   has_many :favorites, dependent: :destroy
+  has_one_attached :icon
 
   validates :nickname, presence:true
 end
