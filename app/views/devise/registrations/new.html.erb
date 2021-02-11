@@ -13,7 +13,10 @@
 
   <div class="container my-2">
     <%= f.label :icon,"アイコン画像" %><br />
-    <%= f.file_field :icon,class:"btn-light" %>
+    <%= f.file_field :icon,class:"btn-light",id:"sake-image" %>
+    <div class="container d-flex">
+      <div id="image-list"></div> <!--preview image-->
+    </div>
   </div>
 
   <div class="container my-2">

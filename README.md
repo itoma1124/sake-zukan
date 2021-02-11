@@ -134,9 +134,8 @@
   ![image](sake-zukan.png)
 
 ## ローカルでの動作方法
-
   ruby 2.6.5
-   Rails 6.0.3.4
+  Rails 6.0.3.4
 
   % git clone https://github.com/itoma1124/sake-zukan.git
 

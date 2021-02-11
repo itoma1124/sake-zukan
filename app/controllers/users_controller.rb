@@ -9,4 +9,11 @@ class UsersController < ApplicationController
     favorite_id = Favorite.where(user_id: @user.id).pluck(:sake_id)  #ユーザーのお気に入りのsake_idカラムを取得
     @favorites = Sake.find(favorite_id) #ユーザーのお気に入り登録した酒の一覧
   end
+
+  def destroy
+    if current_user.destroy
+      redirect_to root_path
+    end
+  end
+  
 end

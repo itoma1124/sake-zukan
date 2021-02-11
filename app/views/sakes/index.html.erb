@@ -46,15 +46,7 @@
 
                 <div class="btn-group d-flex justify-content-between h-3">
                   <%=link_to sake.user.nickname,user_path(sake.user_id),class:"col-7 text-body"%><!--ユーザー名-->
-                  <%if user_signed_in? && current_user.id != sake.user_id %>
-                    <%unless Favorite.exists?(user_id:current_user.id,sake_id:sake.id) %>
-                      <%= link_to "♡ #{sake.favorites.length}",sake_favorites_path(sake),method: :post, class: "btn font-xl text-danger text-right " %><!--いいねボタンON-->
-                    <%else%>
-                      <%= link_to "❤️ #{sake.favorites.length}", sake_favorites_path(sake),method: :delete, class: "btn font-xl text-danger text-right"%><!--いいねボタンOFF-->
-                    <% end %>
-                  <%else%>
-                    <div class="font-xl text-danger text-right">❤️ <%=sake.favorites.length%></div>
-                  <%end%>
+                  <%= render partial:'shared/btn-fav', locals:{sake:sake}%><!--お気に入りボタン-->
                 </div>
 
               </div>
@@ -83,7 +75,7 @@
               <%= image_tag 'no-image.png', size:'200x200', class: 'card-img-top object-fit-cover'%> 
             <%end%>
           <%end%>
-          <div class="d-flex justify-content-between">
+          <div class="d-flex justify-content-between mt-1">
             <%=link_to(sake_path(sake.id),class:"text-body")do%>
                <% if i == 1%>
                 <div>🥇第<%=i%>位</div>
@@ -96,16 +88,7 @@
               <%end%>
               <h3 class="my-auto"><%= sake.name %></h3>
             <%end%>
-
-              <%if user_signed_in? && current_user.id != sake.user_id %>
-                <%unless Favorite.exists?(user_id:current_user.id,sake_id:sake.id) %>
-                  <%= link_to "♡ #{sake.favorites.length}",sake_favorites_path(sake),method: :post, class: "btn font-xl text-danger text-right mt-3" %><!--いいねボタンON-->
-                <%else%>
-                  <%= link_to "❤️ #{sake.favorites.length}", sake_favorites_path(sake),method: :delete, class: "btn font-xl text-danger mt-3"%><!--いいねボタンOFF-->
-                <% end %>
-              <%else%>
-                  <div class="btn font-xl text-danger mt-3">❤️ <%=sake.favorites.length%></div>
-              <%end%>
+            <%= render partial:'shared/btn-fav', locals:{sake:sake}%><!--お気に入りボタン-->
           </div>
         </li>
       <%end%>

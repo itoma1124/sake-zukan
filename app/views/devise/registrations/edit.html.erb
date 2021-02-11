@@ -15,11 +15,13 @@
     <%= f.label :icon,"アイコン画像" %><br />
     <%= f.file_field :icon,class:"btn-light",id:"sake-image" %>
     <div class="container d-flex">
+      <%if current_user.icon.attached?%>
         <div>
-          <div class="ml-2"><現在の画像></div>
+          <div class="ml-2">-現在の画像-</div>
           <%= image_tag current_user.icon, class:"h-5"%>
         </div>
         <p class="mt-5 mx-2">▶️</p>
+      <%end%>
         <div id="image-list"></div> <!--preview image-->
       </div>
   </div>

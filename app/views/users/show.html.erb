@@ -110,7 +110,7 @@
                 <div class="btn-group d-flex justify-content-between h-3">
                   <%=link_to sake.user.nickname,"/users/#{sake.user_id}",class:"col-7 text-body"%><!--ユーザー名-->
                   <%if user_signed_in? && current_user.id == @user.id %>
-                      <%= link_to 'リストから削除', sake_favorites_path(sake),method: :delete, class: "rounded-pill btn btn-secondary  text-right"%> <!--いいねボタンOFF-->
+                      <%= link_to 'リストから削除', sake_favorites_path(sake),method: :delete, class: "rounded-pill border text-dark my-auto w-100 ml-2"%> <!--いいねボタンOFF-->
                   <%end%>
                 </div>
               </div>

@@ -1,4 +1,4 @@
-<%= render "shared/header"%>
+<%= render 'shared/header'%>
 
 <div class="container mt-5 d-flex"><!--上部-->
   <div class="col-5"><!--上部左-->
@@ -20,13 +20,7 @@
         <%= link_to '削除', sake_path(@sake.id),method: :delete, class: "btn btn-sm btn-outline-secondary my-auto"%>
         </div>
       <%else%>
-        <%if user_signed_in?%>
-          <%unless Favorite.exists?(user_id:current_user.id,sake_id:@sake.id) %>
-            <%= link_to "♡ #{@sake.favorites.length}", sake_favorites_path(@sake),method: :post, class: "btn font-l text-danger w-50 border border-danger rounded-pill "%>
-          <%else%>
-            <%= link_to "❤️ #{@sake.favorites.length}",sake_favorites_path(@sake),method: :delete, class: "btn font-l text-light w-50 border border-light rounded-pill bg-danger" %>
-          <% end %>
-        <%end%>
+      <%= render partial:'shared/btn-fav', locals:{sake:@sake}%><!--お気に入りボタン-->
       <%end%>
     </div>
   </div><!--上部左-->
@@ -66,8 +60,8 @@
               <p class="my-auto"><%= comment.user.nickname %>:</p>
               <p class="col my-auto"><%= comment.text %></p>
               <p class="text-black-50 my-auto font-xs text-right"><%= comment.created_at%></p>
-              <% if comment.user_id == current_user.id || @sake.user_id == current_user.id%>
-              <%= link_to '削除', sake_comment_path(comment.sake_id, comment.id),method: :delete, class: "btn btn-sm btn-outline-secondary my-2"%>
+              <% if user_signed_in? && (comment.user_id == current_user.id || @sake.user_id == current_user.id)%>
+                <%= link_to '削除', sake_comment_path(comment.sake_id, comment.id),method: :delete, class: "btn btn-sm btn-outline-secondary my-2"%>
               <% end %>
             </li>
           <% end %>
@@ -107,13 +101,7 @@
             のみくち:<%=sake.taste.name%>
           </div>
           <div class="d-flex">
-            <%if user_signed_in? && current_user.id != sake.user_id %>
-              <%unless Favorite.exists?(user_id:current_user.id,sake_id:sake.id) %>
-                <%= link_to "♡ #{sake.favorites.length}",sake_favorites_path(sake),method: :post, class: "btn font-xl text-danger text-right mt-3" %><!--いいねボタンON-->
-              <%else%>
-                <%= link_to "❤️ #{sake.favorites.length}", sake_favorites_path(sake),method: :delete, class: "btn font-xl text-danger mt-3"%><!--いいねボタンOFF-->
-              <% end %>
-            <%end%>
+            <%= render partial:'shared/btn-fav', locals:{sake:@sake}%><!--お気に入りボタン-->
           </div>
         </div>
       </li>
