@@ -93,15 +93,17 @@
             <%= image_tag 'no-image.png', size:'200x200', class: 'card-img-top object-fit-cover'%> 
           <%end%>
         <%end%>
-        <div class="d-flex justify-content-between">
-          <div>
+        <div>
+          <div class="d-flex justify-content-between">
             <%=link_to(sake_path(sake.id),class:"text-body")do%>
               <h3 class="my-auto"><%= sake.name %></h3>
             <%end%>
-            のみくち:<%=sake.taste.name%>
-          </div>
-          <div class="d-flex">
             <%= render partial:'shared/btn-fav', locals:{sake:@sake}%><!--お気に入りボタン-->
+          </div>
+          <div class="font-xs">
+            のみくち　: <%=sake.taste.name%><br>
+            　酸味　　: <%=sake.sourness.name%><br>
+            飲みやすさ: <%=sake.easy.name%><br>
           </div>
         </div>
       </li>
