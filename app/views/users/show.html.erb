@@ -25,7 +25,7 @@
       <div class="d-flex flex-wrap">
        <% @sakes_paged.each do |sake| %>
           <%if user_signed_in? && current_user.id == sake.user_id%>
-            <%if @complete.include?(sake) %><!---->
+            <%if @complete.include?(sake) && sake.image.attached?%><!---->
               <li class="col-4 shadow-sm my-1 list-group-item border-light">
             <%else%>  
               <li class="col-4 shadow-sm my-1 list-group-item border-light bg-danger">

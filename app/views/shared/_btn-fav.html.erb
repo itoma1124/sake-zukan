@@ -1,9 +1,11 @@
-<%if user_signed_in? && current_user.id != sake.user_id %>
-  <%unless Favorite.exists?(user_id:current_user.id,sake_id:sake.id) %>
-    <%= link_to "♡ #{sake.favorites.length}",sake_favorites_path(sake),method: :post, class: "btn font-xl text-danger border border-danger rounded-pill my-auto" ,remote: true%><!--いいね未-->
+<div id="btn-fav<%=sake.id%>">
+  <%if user_signed_in? && current_user.id != sake.user_id %>
+    <%unless Favorite.exists?(user_id:current_user.id,sake_id:sake.id) %>
+      <%= link_to "♡ #{sake.favorites.length}",sake_favorites_path(sake),method: :post, class: "btn font-xl text-danger border border-danger rounded-pill my-auto",remote: true %><!--いいね未-->
+    <%else%>
+      <%= link_to "❤️ #{sake.favorites.length}", sake_favorites_path(sake),method: :delete, class: "btn font-xl text-light border border-light rounded-pill bg-danger my-auto",remote: true %><!--いいね済-->
+    <% end %>
   <%else%>
-    <%= link_to "❤️ #{sake.favorites.length}", sake_favorites_path(sake),method: :delete, class: "btn font-xl text-light border border-light rounded-pill bg-danger my-auto",remote: true%><!--いいね済-->
-  <% end %>
-<%else%>
-  <div class="font-xl text-danger">❤️ <%=sake.favorites.length%></div>
-<%end%>
+    <div class="font-xl text-danger">❤️ <%=sake.favorites.length%></div>
+  <%end%>
+</div>

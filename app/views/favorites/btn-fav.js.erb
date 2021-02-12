@@ -1,0 +1,7 @@
+var fav = document.getElementById("btn-fav<%=@sake.id%>");
+fav.innerHTML = ("<%= escape_javascript(render('shared/btn-fav',sake:@sake)) %>");
+
+
+
+
+
