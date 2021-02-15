@@ -6,6 +6,6 @@
       <%= link_to "❤️ #{sake.favorites.length}", sake_favorites_path(sake),method: :delete, class: "btn font-xl text-light border border-light rounded-pill bg-danger my-auto",remote: true %><!--いいね済-->
     <% end %>
   <%else%>
-    <div class="font-xl text-danger">❤️ <%=sake.favorites.length%></div>
+    <div class="font-xl text-danger my-auto">❤️ <%=sake.favorites.length%></div>
   <%end%>
 </div>

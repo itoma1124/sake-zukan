@@ -21,61 +21,118 @@
       <label class="form-colum w-25">お酒の名前</label>
       <%= f.text_field :name ,class:"form-control w-50", rows:"1" ,maxlength:"40", value:@sake.name%>
     </div>
+
     <div class="container mb-3">
       <label class="form-colum w-100">お酒の画像</label>
-      <%= f.file_field :image, id:"sake-image", class:"btn-light mb-2", value:@sake.image %>
+      <%= f.file_field :image, id:"sake-image ", class:"btn-light mb-2", value:@sake.image %>
       <div class="container d-flex">
         <div>
-           <div><現在の画像></div>
-          <%= image_tag @sake.image, class:"h-5"%>
+          <div><現在の画像></div>
+          <%if @sake.image.attached?%>
+            <%= image_tag @sake.image, class:"h-5"%>
+          <%else%>
+            <%= image_tag "no-image.png", class:"h-5"%>
+          <%end%>
         </div>
-        <p class="mt-5 mx-2">▶️</p>
-        <div id="image-list"></div> <!--preview image-->
+          <p class="mt-5 mx-2">▶️</p>
+          <div id="image-list"></div> <!--preview image-->
       </div>
     </div>
+
     <div class="container mb-3">
       <label class="form-colum w-25">飲んだ感想</label>
-      <%= f.text_area :impression, class:"form-control" , id:"sake-info" , placeholder:"飲んだ印象やこの酒に合う食事など、飲んだ感想を忘れないうちにメモしましょう",rows:"7" ,maxlength:"1000",value:@sake.impression%>
+      <%if @sake.impression = ""%>
+        <%= f.text_area :impression, class:"form-control border-danger" , id:"sake-info" , placeholder:"飲んだ印象やこの酒に合う食事など、飲んだ感想を忘れないうちにメモしましょう",rows:"7" ,maxlength:"1000",value:@sake.impression%>
+      <%else%>
+        <%= f.text_area :impression, class:"form-control" , id:"sake-info" , placeholder:"飲んだ印象やこの酒に合う食事など、飲んだ感想を忘れないうちにメモしましょう",rows:"7" ,maxlength:"1000",value:@sake.impression%>
+      <%end%>
     </div>
+
     <div class="container mb-3">
       <label class="form-colum w-25">カテゴリー</label>
-      <%= f.text_field :category ,class:"form-control w-25",rows:"1" ,placeholder:"純米吟醸酒",maxlength:"40",value:@sake.category%>
+      <%if @sake.category = ""%>
+        <%= f.text_field :category ,class:"form-control w-25 border-danger",rows:"1" ,placeholder:"純米吟醸酒",maxlength:"40",value:@sake.category%>
+      <%else%>
+        <%= f.text_field :category ,class:"form-control w-25",rows:"1" ,placeholder:"純米吟醸酒",maxlength:"40",value:@sake.category%>
+      <%end%>
     </div>
+
     <div class="container mb-3">
       <label class="form-colum w-25">飲んだ/購入した場所</label>
-      <%= f.text_field :place ,class:"form-control w-50",rows:"1",value:@sake.place%>
+      <% if @sake.place = ""%>
+        <%= f.text_field :place ,class:"form-control w-50 border-danger",rows:"1",value:@sake.place%>
+      <%else%>
+        <%= f.text_field :place ,class:"form-control w-50",rows:"1",value:@sake.place%>
+      <%end%>
     </div>
+
     <div class="container mb-3">
       <label class="form-colum w-100">テイスト</label>
-      <%= f.collection_select(:taste_id, Taste.all, :id, :name, {selected: @sake.taste_id}, {class:"form-control w-25", id:"sake-taste"}) %>
+      <%if @sake.taste_id = 0 || @sake.taste_id = ""%>
+        <%= f.collection_select(:taste_id, Taste.all, :id, :name, {selected: @sake.taste_id}, {class:"form-control w-25 border-danger", id:"sake-taste"}) %>
+      <%else%>
+        <%= f.collection_select(:taste_id, Taste.all, :id, :name, {selected: @sake.taste_id}, {class:"form-control w-25 border-danger", id:"sake-taste"}) %>
+      <%end%>
     </div>
+
     <div class="container mb-3">
       <label class="form-colum w-100">酸味</label>
-      <%= f.collection_select(:sourness_id, Sourness.all, :id, :name, {selected: @sake.sourness_id}, {class:"form-control w-25", id:"sake-sourness"}) %>
+      <%if @sake.sourness_id = 0 || @sake.sourness_id = ""%>
+        <%= f.collection_select(:sourness_id, Sourness.all, :id, :name, {selected: @sake.sourness_id}, {class:"form-control w-25 border-danger", id:"sake-sourness"}) %>
+      <%else%>
+        <%= f.collection_select(:sourness_id, Sourness.all, :id, :name, {selected: @sake.sourness_id}, {class:"form-control w-25", id:"sake-sourness"}) %>
+      <%end%>
     </div>
+
     <div class="container mb-3">
       <label class="form-colum w-100">飲みやすさ</label>
-      <%= f.collection_select(:easy_id, Easy.all, :id, :name, {selected: @sake.easy_id}, {class:"form-control w-25", id:"sake-easy"}) %>
+      <%if @sake.easy_id = 0 || @sake.easy_id = ""%>
+        <%= f.collection_select(:easy_id, Easy.all, :id, :name, {selected: @sake.easy_id}, {class:"form-control w-25 border-danger", id:"sake-easy"}) %>
+      <%else%>
+        <%= f.collection_select(:easy_id, Easy.all, :id, :name, {selected: @sake.easy_id}, {class:"form-control w-25", id:"sake-easy"}) %>
+      <%end%>
     </div>
+
     <div class="container mb-3">
       <label class="form-colum w-100">総合評価</label>
-      <%= f.collection_select(:total_id, Total.all, :id, :name, {selected: @sake.total_id}, {class:"form-control w-25", id:"sake-total"}) %>
+      <%if @sake.total_id = 0 || @sake.total_id = ""%>
+        <%= f.collection_select(:total_id, Total.all, :id, :name, {selected: @sake.total_id}, {class:"form-control w-25 border-danger", id:"sake-total"}) %>
+      <%else%>
+        <%= f.collection_select(:total_id, Total.all, :id, :name, {selected: @sake.total_id}, {class:"form-control w-25", id:"sake-total"}) %>
+      <%end%>
     </div>
+
     <div class="container mb-3">
       <label class="form-colum w-25">蔵元名</label>
-      <%= f.text_field :maker ,class:"form-control w-50",rows:"1" ,placeholder:"〇〇酒蔵",maxlength:"40", value:@sake.maker%>
+      <%if @sake.maker = ""%>
+        <%= f.text_field :maker ,class:"form-control w-50 border-danger",rows:"1" ,placeholder:"〇〇酒蔵",maxlength:"40", value:@sake.maker%>
+      <%else%>
+        <%= f.text_field :maker ,class:"form-control w-50",rows:"1" ,placeholder:"〇〇酒蔵",maxlength:"40", value:@sake.maker%>
+      <%end%>
     </div>
+
     <div class="container mb-3">
       <label class="form-colum w-100">地域</label>
-      <%= f.collection_select(:area_id, Area.all, :id, :name, {selected: @sake.area_id}, {class:"form-control w-25", id:"sake-prefecture"}) %>
+      <%if @sake.area_id = 0 || @sake.area_id = ""%>
+        <%= f.collection_select(:area_id, Area.all, :id, :name, {selected: @sake.area_id}, {class:"form-control w-25 border-danger", id:"sake-prefecture"}) %>
+      <%else%>
+        <%= f.collection_select(:area_id, Area.all, :id, :name, {selected: @sake.area_id}, {class:"form-control w-25", id:"sake-prefecture"}) %>
+      <%end%>
     </div>
+
     <div class="container mb-3">
       <label class="form-colum w-25">テキスト</label>
-      <%= f.text_area :text, class:"form-control" , id:"sake-info" , placeholder:"公式テキストや他の人の感想　※引用する場合、引用元を提示してください",rows:"7" ,maxlength:"1000", value: @sake.text%>
+      <%if @sake.text = ""%>
+        <%= f.text_area :text, class:"form-control border-danger" , id:"sake-info" , placeholder:"公式テキストや他の人の感想　※引用する場合、引用元を提示してください",rows:"7" ,maxlength:"1000", value: @sake.text%>
+      <%else%>
+        <%= f.text_area :text, class:"form-control" , id:"sake-info" , placeholder:"公式テキストや他の人の感想　※引用する場合、引用元を提示してください",rows:"7" ,maxlength:"1000", value: @sake.text%>
+      <%end%>
     </div>
+
     <div class="container w-100 d-flex justify-content-center"> 
       <%= f.submit '更新' ,class:"w-25 btn btn-light border"%>
     </div>
+
     <% end %>
   </div>
 </div>
