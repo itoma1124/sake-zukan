@@ -13,7 +13,7 @@
       <p class="col">飲みやすさ : <%=@sake.easy.name%></p>
       <p class="col">飲んだ場所 : <%=@sake.place%></p>
       <h4 class="my-3 border-top pt-2"><%=link_to @sake.user.nickname,user_path(@sake.user_id),class:"text-body"%>の感想</h4>
-      <p class="card w-100 font-xs　text-body　border rounded h-min-5"><%=@sake.impression%><p>
+      <p class="card w-100 font-s text-body border rounded h-min-5 p-1"><%=@sake.impression%><p>
       <%if user_signed_in? && current_user.id == @sake.user.id%>
         <div class="my-2">
         <%= link_to '編集', edit_sake_path(@sake.id), class: "btn btn-sm btn-outline-secondary my-auto"%>
@@ -30,7 +30,7 @@
     <%else%>
       <%= image_tag 'no-image.png', class: 'object-fit-contain w-100 h-26'%>
     <%end%>
-      <p class="container mt-2 mr-2 border rounded h-min-9 "><%=@sake.text %><p>
+      <p class="container mt-2 mr-2 border rounded h-min-9 p-1"><%=@sake.text %><p>
   </div>
 </div><!--上部-->
 
