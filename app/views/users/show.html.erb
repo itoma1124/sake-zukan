@@ -55,7 +55,7 @@
                   </div>
                   <div class="font-xl text-danger text-right">❤️ <%=sake.favorites.length%></div>
                 </div>
-                  <div class="border font-xs rounded h-3 p-2"> <%= sake.impression%></div>
+                  <div class="border font-xs rounded h-3 w-100 mt-2 px-1 overflow-hidden"> <%= sake.impression%></div>
                 <div class="btn-group d-flex justify-content-between pt-1">
                   <% if user_signed_in? && sake.user_id == current_user.id %>
                     <%= link_to '編集', edit_sake_path(sake.id), class: "btn btn-sm btn-outline-secondary" %>
