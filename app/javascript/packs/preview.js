@@ -1,5 +1,5 @@
 if (document.URL.match( /new/ ) || document.URL.match( /edit/ )|| document.URL.match( /sign_up/ )) {
-  console.log("success")
+  // console.log("success")
   document.addEventListener('DOMContentLoaded', function(){
     const ImageList = document.getElementById('image-list');
     document.getElementById('sake-image').addEventListener('change', function(e){
