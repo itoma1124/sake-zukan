@@ -69,7 +69,6 @@
 /* はみだし文章省略 */
 .overflow-hidden{
 text-overflow: ellipsis;
-/* white-space: nowrap; */
 overflow: hidden;
 }
 

@@ -24,7 +24,7 @@
 
     <div class="container mb-3">
       <label class="form-colum w-100">お酒の画像</label>
-      <%= f.file_field :image, id:"sake-image ", class:"btn-light mb-2", value:@sake.image %>
+      <%= f.file_field :image, id:"sake-image", class:"btn-light" %>
       <div class="container d-flex">
         <div>
           <div><現在の画像></div>
@@ -34,8 +34,8 @@
             <%= image_tag "no-image.png", class:"h-5"%>
           <%end%>
         </div>
-          <p class="mt-5 mx-2">▶️</p>
-          <div id="image-list"></div> <!--preview image-->
+          <div class="mt-5 mx-2">▶️</div>
+            <div id="image-list"></div> <!--preview image-->
       </div>
     </div>
 
