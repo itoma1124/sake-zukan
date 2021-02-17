@@ -1,18 +1,20 @@
 <%= render "shared/header"%>
 <main>
   <div class="album py-5 bg-light">
-    <div class="container d-flex justify-content-between",id="title">
+    <div class="d-flex justify-content-between px-5",id="title">
       <h2>〜みんなの酒メモ〜</h2>
       <%# 検索バー %>
         <%= search_form_for @q, url: sakes_search_path,class:"my-auto text-body" do |f| %>
-          <%= sort_link(@q, :created_at, "登録日")%>
-          <%= sort_link(@q, :name, "名前:")%>
+          <div class="d-flex">
+          <div class="ml-2 my-auto"><%= sort_link(@q, :created_at, "登録日")%></div>
+          <div class="ml-2 my-auto"><%= sort_link(@q, :name, "名前:")%></div>
           <%= f.collection_select :name_cont, @name, :name, :name, include_blank: '指定なし'%>
-          <%= sort_link(@q, :category, "種類:")%>
+          <div class="ml-2 my-auto"><%= sort_link(@q, :category, "種類:")%></div>
           <%= f.collection_select :category_eq, @category, :category, :category, include_blank: '指定なし'%>
-          <%= sort_link(@q, :total_id, "評価:")%>
+          <div class="ml-2 my-auto"> <%= sort_link(@q, :total_id, "評価:")%></div>
           <%= f.collection_select :total_id_eq, Total.all, :id, :name, include_blank: '指定なし'%>
-          <%= f.submit "絞り込む",class:"ml-2" %>
+          <div class="ml-2 my-auto"><%= f.submit "絞り込む",class:"ml-2" %></div>
+          </div>
         <% end %>
       <%# /検索バー %>
     </div><%# /id:title %>
@@ -20,7 +22,7 @@
       <div class="d-flex flex-wrap">
         <% @sakes.each do |sake| %>
             <!--card内枠-->
-            <li class="col-3 shadow-sm my-1 list-group-item "> 
+            <li class="col-3 shadow-sm my-1 list-group-item"> 
               <!--card上部-->
               <%if sake.image.attached?%>
                 <%=link_to(sake_path(sake.id))do%>
@@ -31,14 +33,12 @@
                   <%= image_tag 'no-image.png', size:'200x200', class: 'card-img-top object-fit-cover'%> 
                 <%end%>
               <%end%>
+              <%=link_to(sake_path(sake.id),class:"text-body")do%><!--酒の名前-->
+                <h3 class="overflow-hidden h-2 mt-2"><%= sake.name %></h3>
+              <%end%>
               <!--/card上部-->
               <!--card下部-->
               <div class="container">
-                <p class="card-text"><!--酒の名前-->
-                  <%=link_to(sake_path(sake.id),class:"text-body")do%>
-                    <h3><%= sake.name %></h3>
-                  <%end%>
-                </p>
                 <p class="font-s"><!--酒情報-->
                     　　種類:<%= sake.category %><br>
                     総合評価:<%= sake.total.name %>
@@ -86,7 +86,7 @@
               <%else%>
                 <div>第<%=i%>位</div>
               <%end%>
-              <h3 class="my-auto"><%= sake.name %></h3>
+              <h3 class="overflow-hidden my-auto "><%= sake.name %></h3>
             <%end%>
             <%= render partial:'shared/btn-fav', locals:{sake:sake}%><!--お気に入りボタン-->
           </div>

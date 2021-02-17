@@ -12,6 +12,7 @@
 .font-xl{font-size: x-large;}
 .font-xxl{font-size: xx-large;}
 
+
 /* height */
 .h-1{height: 1rem;}
 .h-2{height: 2rem;}
@@ -30,6 +31,18 @@
 .h-15{height: 15rem;}
 .h-16{height: 16rem;}
 .h-26{height: 26rem;}
+
+/* width */
+.w-1{width: 1rem;}
+.w-2{width: 2rem;}
+.w-3{width: 3rem;}
+.w-4{width: 4rem;}
+.w-5{width: 5rem;}
+.w-6{width: 6rem;}
+.w-7{width: 7rem;}
+.w-8{width: 8rem;}
+.w-9{width: 9rem;}
+.w-10{width: 10rem;}
 
 /* max-height */
 .h-max-1{max-height: 1rem;}

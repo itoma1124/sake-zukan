@@ -46,7 +46,9 @@
               <%end%>
               <div class="container">
                 <div class="card-text mt-2 px-2 d-flex justify-content-between">
-                  <h3 ><%= sake.name %></h3>
+                  <%=link_to(sake_path(sake.id))do%>
+                    <h3 class="overflow-hidden text-body h-4 mt-2"><%= sake.name %></h3>
+                  <%end%>
                 </div>
                 <div class="font-s d-flex justify-content-between">
                   <div>
@@ -100,7 +102,9 @@
               <!--card下部-->
               <div class="container">
                 <div class="card-text mt-2 d-flex justify-content-between">
-                  <h3><%= sake.name %></h3>
+                  <%=link_to(sake_path(sake.id))do%>
+                    <h3 class="overflow-hidden text-body h-4 mt-2"><%= sake.name %></h3>
+                  <%end%>
                   <div class="font-xl text-danger text-right">❤️ <%=sake.favorites.length%></div>
                 </div>
                 <p class="font-s">
