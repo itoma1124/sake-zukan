@@ -76,13 +76,15 @@ https://github.com/itoma1124/sake-zukan/issues/22#issue-807926945
 ### ログイン・ログアウト
 https://github.com/itoma1124/sake-zukan/issues/21#issue-807926655
 ### マイページ
-
+https://github.com/itoma1124/sake-zukan/issues/31#issue-807927484
 ### 酒　新規投稿
 https://github.com/itoma1124/sake-zukan/issues/27#issue-807927285
 ### 酒　編集
+https://github.com/itoma1124/sake-zukan/issues/28#issue-807927341
 ### 酒　削除
 https://github.com/itoma1124/sake-zukan/issues/26#issue-807927153
 ### 酒　お気に入り機能
+https://github.com/itoma1124/sake-zukan/issues/29#issue-807927387
 ### 酒　検索・ソート機能
 https://github.com/itoma1124/sake-zukan/issues/25#issue-807927132
 ###　ランキング機能
